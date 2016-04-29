@@ -6,13 +6,15 @@ pytest
 pytest-cov
 mock
 
-# virtualenv-based automation of test activities_
+## virtualenv-based automation of test activities_
 tox
-# Version-bump your software with a single command:
+## Version-bump your software with a single command:
 bumpversion
-# A built-package format for Python:
+## A built-package format for Python:
 wheel
-# Python style guide checker:
+## Python style guide checker:
 flake8
-# for test coverage:
-coverage
+## for test coverage:
+# coverage
+## Code checker:
+prospector
