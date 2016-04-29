@@ -2,4 +2,7 @@
 
 def test_main():
     import runpy
-    assert runpy.run_module('dbassembly')
+    x=runpy.run_module('dbassembly')
+    assert x['main']
+    assert x['__package__'] == 'dbassembly'
+    assert x['__name__'] == 'dbassembly.__main__'
