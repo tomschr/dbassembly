@@ -1,3 +1,4 @@
+#
 # Copyright (c) 2016 SUSE Linux GmbH.  All rights reserved.
 #
 # This file is part of dbassembly.
