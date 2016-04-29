@@ -1,0 +1,8 @@
+#
+# Requirement files for Python Virtual Environments
+#
+
+# XML library for Python:
+lxml
+# CLI parsing made easy:
+docopt

@@ -1,0 +1,18 @@
+#
+# Requirement files for Python Virtual Environments
+#
+-r requirements.txt
+pytest
+pytest-cov
+mock
+
+# virtualenv-based automation of test activities_
+tox
+# Version-bump your software with a single command:
+bumpversion
+# A built-package format for Python:
+wheel
+# Python style guide checker:
+flake8
+# for test coverage:
+coverage
