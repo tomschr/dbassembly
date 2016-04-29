@@ -11,7 +11,7 @@ extensions = [
     'sphinx.ext.doctest',
     'sphinx.ext.extlinks',
     'sphinx.ext.ifconfig',
-    'sphinx.ext.napoleon',
+#    'sphinx.ext.napoleon',
     'sphinx.ext.todo',
     'sphinx.ext.viewcode',
 ]
@@ -19,6 +19,13 @@ if os.getenv('SPELLCHECK'):
     extensions += 'sphinxcontrib.spelling',
     spelling_show_suggestions = True
     spelling_lang = 'en_US'
+    spelling_show_suggestions = True
+    spelling_ignore_acronyms = True
+    spelling_ignore_importable_modules = True
+    spelling_ignore_python_builtins = True
+    spelling_ignore_pypi_package_names = True
+    spelling_word_list_filename = 'spelling_wordlist.txt'
+
 
 source_suffix = '.rst'
 master_doc = 'index'
@@ -48,6 +55,7 @@ html_sidebars = {
 }
 html_short_title = '%s-%s' % (project, version)
 
-napoleon_use_ivar = True
-napoleon_use_rtype = False
-napoleon_use_param = False
+if 'sphinx.ext.napoleon' in extensions:
+    napoleon_use_ivar = True
+    napoleon_use_rtype = False
+    napoleon_use_param = False

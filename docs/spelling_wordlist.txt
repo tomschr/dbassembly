@@ -1,11 +1,14 @@
-builtin
-builtins
-classmethod
-staticmethod
-classmethods
-staticmethods
-args
-kwargs
-callstack
+# Spellchecking Wordlist
+# NOTE: Do NOT add empty lines!
+#
+# Sort this file by using (and overwrite the result after line 6):
+# cat spelling_wordlist.txt | sed 1,6d | sort
+#
+assembly
+assemblies
 Changelog
-Indices
+DocBook
+docstring
+docstrings
+freenode
+GitHub

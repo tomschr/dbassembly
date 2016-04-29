@@ -1,6 +1,6 @@
-========
-Contents
-========
+===================
+DocBook Assemblies
+===================
 
 .. sidebar:: Work in Progress
 
