@@ -18,4 +18,7 @@ include README.rst
 
 include tox.ini .travis.yml appveyor.yml
 
+recursive-exclude docs/build html singlehtml .doctrees/* _static _static/* *.html *.js .buildinfo *.inv .doctrees _sources _sources/*
+exclude docs/build
+
 global-exclude *.py[cod] __pycache__ *.so *.dylib
