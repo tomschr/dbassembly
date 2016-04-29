@@ -3,6 +3,11 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Editor
+*.kate-swp
+*.~
+*~
+
 # C extensions
 *.so
 
