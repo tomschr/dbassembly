@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<topic version="5.1" xml:id="t2"
+       xmlns="http://docbook.org/ns/docbook"
+       xmlns:xlink="http://www.w3.org/1999/xlink"
+       xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Title of topic #2</title>
+
+  <para>Paragraph contained in topic #2.</para>
+</topic>
