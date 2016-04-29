@@ -69,10 +69,6 @@ Installation
 
     pip install dbassembly
 
-Documentation
-=============
-
-https://dbassembly.readthedocs.io/
 
 Development
 ===========
