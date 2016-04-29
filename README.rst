@@ -6,8 +6,11 @@ Overview
 
 |travis| |landscape| |codecov| |scrutinizer|
 
+.. sidebar:: Work in Progress
 
-.. |docs| image:: https://readthedocs.org/projects/dbassembly/badge/?style=flat
+    This project is work in progress (planning state)
+
+.. .. |docs| image:: https://readthedocs.org/projects/dbassembly/badge/?style=flat
     :target: https://readthedocs.org/projects/dbassembly
     :alt: Documentation Status
 
@@ -19,10 +22,6 @@ Overview
     :alt: Requirements Status
     :target: https://requires.io/github/tomschr/dbassembly/requirements/?branch=master
 
-.. |coveralls| image:: https://coveralls.io/repos/tomschr/dbassembly/badge.svg?branch=master&service=github
-    :alt: Coverage Status
-    :target: https://coveralls.io/r/tomschr/dbassembly
-
 .. |codecov| image:: https://codecov.io/github/tomschr/dbassembly/coverage.svg?branch=master
     :alt: Coverage Status
     :target: https://codecov.io/github/tomschr/dbassembly
@@ -30,26 +29,6 @@ Overview
 .. |landscape| image:: https://landscape.io/github/tomschr/dbassembly/master/landscape.svg?style=flat
     :target: https://landscape.io/github/tomschr/dbassembly/master
     :alt: Code Quality Status
-
-.. |version| image:: https://img.shields.io/pypi/v/dbassembly.svg?style=flat
-    :alt: PyPI Package latest release
-    :target: https://pypi.python.org/pypi/dbassembly
-
-.. |downloads| image:: https://img.shields.io/pypi/dm/dbassembly.svg?style=flat
-    :alt: PyPI Package monthly downloads
-    :target: https://pypi.python.org/pypi/dbassembly
-
-.. |wheel| image:: https://img.shields.io/pypi/wheel/dbassembly.svg?style=flat
-    :alt: PyPI Wheel
-    :target: https://pypi.python.org/pypi/dbassembly
-
-.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/dbassembly.svg?style=flat
-    :alt: Supported versions
-    :target: https://pypi.python.org/pypi/dbassembly
-
-.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/dbassembly.svg?style=flat
-    :alt: Supported implementations
-    :target: https://pypi.python.org/pypi/dbassembly
 
 .. |scrutinizer| image:: https://img.shields.io/scrutinizer/g/tomschr/dbassembly/master.svg?style=flat
     :alt: Scrutinizer Status
