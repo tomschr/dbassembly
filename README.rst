@@ -4,17 +4,8 @@ Overview
 
 .. start-badges
 
-.. list-table::
-    :stub-columns: 1
+|travis| |landscape| |codecov| |scrutinizer|
 
-    * - docs
-      - |docs|
-    * - tests
-      - | |travis| |requires|
-        | |coveralls| |codecov|
-        | |landscape| |scrutinizer|
-    * - package
-      - |version| |downloads| |wheel| |supported-versions| |supported-implementations|
 
 .. |docs| image:: https://readthedocs.org/projects/dbassembly/badge/?style=flat
     :target: https://readthedocs.org/projects/dbassembly
@@ -64,12 +55,12 @@ Overview
     :alt: Scrutinizer Status
     :target: https://scrutinizer-ci.com/g/tomschr/dbassembly/
 
-
 .. end-badges
 
 Manage DocBook Assemblies
 
-* Free software: BSD license
+* Free software: GPL license
+
 
 Installation
 ============
