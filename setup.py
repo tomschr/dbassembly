@@ -76,6 +76,8 @@ setup(
         # 'Programming Language :: Python :: Implementation :: IronPython',
         # 'Programming Language :: Python :: Implementation :: Jython',
         # 'Programming Language :: Python :: Implementation :: Stackless',
+        #
+        'License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)',
         'Topic :: Utilities',
     ],
     keywords=[
@@ -83,6 +85,7 @@ setup(
     ],
     install_requires=[
         # eg: 'aspectlib==1.1.1', 'six>=1.7',
+        'docopt', 'lxml',
     ],
     extras_require={
         # eg:
