@@ -92,6 +92,9 @@ class TestLogger(object):
     def test_progress_raise(self):
         assert log.progress(50, 0, 'foo') is None
 
+    def test_progress_raise_with100(self):
+        assert log.progress(100, 100, 'foo') is None
+
     @patch('logging.FileHandler')
     def test_set_logfile(self, mock_file_handler):
         log.set_logfile('logfile')
