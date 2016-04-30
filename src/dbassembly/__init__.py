@@ -34,3 +34,5 @@ Contains global variables
 
 __version__ = "0.1.0"
 __proc__ = "dbassembly"
+
+DOCBOOK_NS_URI = "http://docbook.org/ns/docbook"
