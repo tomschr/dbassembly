@@ -30,5 +30,5 @@ For more info, read:
 
 from dbassembly.cli import main
 
-if __name__ == "__main__": # noqa
+if __name__ == "__main__": # pragma: no cover
     main()  # noqa

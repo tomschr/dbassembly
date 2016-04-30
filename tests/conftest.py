@@ -21,7 +21,7 @@
 from functools import wraps
 
 
-class raises(object):
+class raises(object): # pragma: no cover
     """
     exception decorator as used in nose, tools/nontrivial.py
     """
