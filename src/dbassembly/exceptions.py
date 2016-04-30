@@ -18,24 +18,24 @@
 # To contact SUSE about this file by physical or electronic mail,
 # you may find current contact information at www.suse.com
 
-"""
-dbassembly Module
-=================
 
-.. default-domain:: py
+class DBAssemblyError(BaseException):
+    """
+    Base class to handle all known exceptions.
 
-Contains global variables
+    Specific exceptions are implemented as sub classes of :py:class:`DBAssemblyError`.
 
-.. automodule:: dbassembly.cli
-    :members:
-    :show-inheritance:
+    Attributes
 
-"""
+    * :attr:`message`
+        Exception message text
+    """
+    def __init__(self, message):
+        self.message = message
 
-__version__ = "0.1.0"
-__proc__ = "dbassembly"
+    def __str__(self):
+        return format(self.message)
 
-NS = dict(DB="http://docbook.org/ns/docbook",
-          XL="http://www.w3.org/1999/xlink",
-          XI="http://www.w3.org/2001/XInclude",
-          )
+
+class NoAssemblyFileError(DBAssemblyError):
+    pass

@@ -3,25 +3,32 @@
 #
 # This file is part of dbassembly.
 #
-# kiwi is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of version 3 of the GNU General Public License as
+# published by the Free Software Foundation.
 #
-# kiwi is distributed in the hope that it will be useful,
+# This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with kiwi.  If not, see <http://www.gnu.org/licenses/>
+# along with this program; if not, contact SUSE LLC.
 #
+# To contact SUSE about this file by physical or electronic mail,
+# you may find current contact information at www.suse.com
+
 
 from lxml import etree
+
+from . import NS
+from .exceptions import NoAssemblyFileError
 from .logger import log
 
 
 class App(object):
+    ASSEMBLY_TAG = etree.QName('{{{}}}assembly'.format(NS['DB']))
+
     def __init__(self, args=None):
         self.args = {} if args is None else args
         self.assembly = self.args.get('<assembly>')
@@ -29,8 +36,12 @@ class App(object):
 
     def process(self):
         log.debug("processing assembly...")
-        xml = etree.parse(self.assembly)
-        log.debug("xml %s", xml)
+        self.xml = etree.parse(self.assembly)
+        log.debug("xml %s", self.xml)
+        self.root = self.xml.getroot()
+        name = etree.QName(self.root)
+        if name != self.ASSEMBLY_TAG:
+            raise NoAssemblyFileError('Got %s' % str(name))
 
         return self.assembly
 

@@ -99,7 +99,7 @@ def main(argv=None):
         logger.log.debug("app=%s", app)
         logger.log.debug("Result=%s", result)
         return result
-    except KeyboardInterrupt:
+    except KeyboardInterrupt:  # pragma: nocover
         logger.log.error('%s aborted by keyboard interrupt' % __proc__)
         sys.exit(1)
     except DocoptExit as error:
