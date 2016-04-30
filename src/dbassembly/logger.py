@@ -208,25 +208,25 @@ class Logger(logging.Logger):
         # log INFO to stdout
         self.__add_stream_handler(
             'info',
-            '[ %(levelname)-8s]: %(asctime)-8s | %(message)s',
+            '[%(levelname)-6s]: %(asctime)-8s | %(message)s',
             [InfoFilter()]
         )
         # log WARNING messages to stdout
         self.__add_stream_handler(
             'warning',
-            '[ %(levelname)-8s]: %(asctime)-8s | %(message)s',
+            '[%(levelname)-6s]: %(asctime)-8s | %(message)s',
             [WarningFilter()]
         )
         # log DEBUG messages to stdout
         self.__add_stream_handler(
             'debug',
-            '[ %(levelname)-8s]: %(asctime)-8s | %(message)s',
+            '[%(levelname)-6s]: %(asctime)-8s | %(message)s',
             [DebugFilter()]
         )
         # log ERROR messages to stderr
         self.__add_stream_handler(
             'error',
-            '[ %(levelname)-8s]: %(asctime)-8s | %(message)s',
+            '[%(levelname)-6s]: %(asctime)-8s | %(message)s',
             [ErrorFilter()],
             sys.__stderr__
         )
