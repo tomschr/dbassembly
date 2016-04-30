@@ -25,11 +25,15 @@ class App(object):
     def __init__(self, args=None):
         self.args = {} if args is None else args
         self.assembly = self.args.get('<assembly>')
+        self.output = self.args.get('<output>')
 
     def process(self):
-        log.debug("process called")
+        # log.debug("process called")
+        return self.assembly
 
     def __repr__(self):
-        return repr(self.args)
-
-
+        # return repr(self.args)
+        return "<%s: %r -> %r>" % (self.__class__.__name__,
+                                   self.assembly,
+                                   self.output,
+                                   )
