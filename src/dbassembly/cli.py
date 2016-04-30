@@ -82,11 +82,14 @@ usage: dbassembly -h | --help
     return cli
 
 
-def main(args=None):
+def main(argv=None):
     """Main entry point
+
+    :param list argv: Arguments to parse or None (=use `sys.argv`)
+    :return: result from :func:`App.process`
     """
     try:
-        cli = parsecli(args)
+        cli = parsecli(argv)
         app = App(cli)
         result = app.process()
         logger.log.debug("app=%s", app)
@@ -97,7 +100,6 @@ def main(args=None):
         sys.exit(1)
     except DocoptExit as error:
         # exception thrown by docopt, results in usage message
-        # print(error, file=sys.stderr)
         logger.log.error(error)
         sys.exit(1)
     except SystemExit:
