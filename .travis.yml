@@ -9,14 +9,9 @@ env:
     - TOXENV=check
     - TOXENV=docs
 
-    - TOXENV=3.3-cover,codecov
-    - TOXENV=3.3-nocov
-    - TOXENV=3.4-cover,codecov
-    - TOXENV=3.4-nocov
-    - TOXENV=3.5-cover,codecov
-    - TOXENV=3.5-nocov
-    #- TOXENV=pypy-cover,codecov
-    #- TOXENV=pypy-nocov
+    - TOXENV=3.3-cover
+    - TOXENV=3.4-cover
+    - TOXENV=3.5-cover
 
 before_install:
   - python --version
