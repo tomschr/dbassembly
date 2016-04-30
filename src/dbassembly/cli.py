@@ -56,18 +56,21 @@ def parsecli(argv=None):
     _doc = """
 usage: dbassembly -h | --help
        dbassembly --version
-       dbassembly [-v]... [options] [--] <assembly>
+       dbassembly [-v]... [options] [--] <assembly> [<output>]
 
   global options:
     --version
         show program version
-    -o <output> --output=<output>
-        save realized DocBook document
     -b <basedir> --basedir=<basedir>
         define base directory of processing
     -f=<format> --format=<format>
         select <format> from assembly
     -v  raise verbosity
+
+    <assembly>
+        DocBook 5 assembly file
+    <output>
+        save "flat" DocBook document (default goes to stdout)
     """
     cli = docopt(_doc,
                   version='%s version %s' % (__proc__, __version__),
@@ -85,14 +88,17 @@ def main(args=None):
     try:
         cli = parsecli(args)
         app = App(cli)
-        logger.log.debug("Hallo Welt!")
-        logger.log.info("app=%s", app)
+        result = app.process()
+        logger.log.debug("app=%s", app)
+        logger.log.debug("Result=%s", result)
+        return result
     except KeyboardInterrupt:
         logger.log.error('%s aborted by keyboard interrupt' % __proc__)
         sys.exit(1)
     except DocoptExit as error:
         # exception thrown by docopt, results in usage message
-        print(error, file=sys.stderr)
+        # print(error, file=sys.stderr)
+        logger.log.error(error)
         sys.exit(1)
     except SystemExit:
         # user exception, program aborted by user
