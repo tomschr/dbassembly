@@ -1,12 +1,12 @@
 
-from unittest.mock import patch
-from unittest.mock import call
-from collections import namedtuple
-
-from .conftest import raises
 import logging
+from collections import namedtuple
+from unittest.mock import call
+from unittest.mock import patch
 
 from dbassembly.logger import *
+
+from .conftest import raises
 
 
 class DBAssemblyError(Exception):

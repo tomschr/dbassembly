@@ -1,6 +1,9 @@
 
-from dbassembly.app import App
 from unittest.mock import patch
+
+from dbassembly.app import App
+
+
 # from mock import patch
 
 def test_app():

@@ -1,6 +1,9 @@
 
-from dbassembly.cli import main, parsecli
+from dbassembly.cli import main
+from dbassembly.cli import parsecli
+
 from .conftest import raises
+
 
 @raises(SystemExit)
 def test_main():

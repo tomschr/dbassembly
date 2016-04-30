@@ -28,11 +28,13 @@ class App(object):
         self.output = self.args.get('<output>')
 
     def process(self):
-        # log.debug("process called")
+        log.debug("processing assembly...")
+        xml = etree.parse(self.assembly)
+        log.debug("xml %s", xml)
+
         return self.assembly
 
     def __repr__(self):
-        # return repr(self.args)
         return "<%s: %r -> %r>" % (self.__class__.__name__,
                                    self.assembly,
                                    self.output,

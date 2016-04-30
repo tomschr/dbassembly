@@ -38,12 +38,15 @@ Why does this file exist, and why not put this in __main__?
   Also see (1) from http://click.pocoo.org/5/setuptools/#setuptools-integration
 """
 
-from docopt import docopt, DocoptExit
 import sys
 
-from .app import App
+from docopt import DocoptExit
+from docopt import docopt
+
+from . import __proc__
+from . import __version__
 from . import logger
-from . import __version__, __proc__
+from .app import App
 
 
 def parsecli(argv=None):
@@ -73,10 +76,10 @@ usage: dbassembly -h | --help
         save "flat" DocBook document (default goes to stdout)
     """
     cli = docopt(_doc,
-                  version='%s version %s' % (__proc__, __version__),
-                  options_first=True,
-                  argv=argv,
-                  )
+                 version='%s version %s' % (__proc__, __version__),
+                 options_first=True,
+                 argv=argv,
+                 )
     logger.log.info("docops: %s", cli)
     logger.setloglevel(cli['-v'])
     return cli
