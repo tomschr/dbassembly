@@ -4,7 +4,7 @@ Overview
 
 .. start-badges
 
-|travis| |landscape| |codecov| |scrutinizer|
+|travis| |landscape| |codecov| |scrutinizer| |requires|
 
 .. sidebar:: Work in Progress
 
@@ -19,8 +19,8 @@ Overview
     :target: https://travis-ci.org/tomschr/dbassembly
 
 .. |requires| image:: https://requires.io/github/tomschr/dbassembly/requirements.svg?branch=master
-    :alt: Requirements Status
-    :target: https://requires.io/github/tomschr/dbassembly/requirements/?branch=master
+     :target: https://requires.io/github/tomschr/dbassembly/requirements/?branch=master
+     :alt: Requirements Status
 
 .. |codecov| image:: https://codecov.io/github/tomschr/dbassembly/coverage.svg?branch=master
     :alt: Coverage Status
