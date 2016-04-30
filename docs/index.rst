@@ -1,6 +1,8 @@
-===================
-DocBook Assemblies
-===================
+=============================
+DocBook Assemblies v|version|
+=============================
+
+Managing DocBook assemblies with :command:`dbassembly`.
 
 .. sidebar:: Work in Progress
 

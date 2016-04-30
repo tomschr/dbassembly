@@ -11,12 +11,12 @@ extensions = [
 #    'sphinx.ext.doctest',
     'sphinx.ext.extlinks',
     'sphinx.ext.ifconfig',
-#    'sphinx.ext.napoleon',
+#    'sphinxcontrib.spelling',
     'sphinx.ext.todo',
     'sphinx.ext.viewcode',
+    'sphinxcontrib.programoutput',
 ]
 if os.getenv('SPELLCHECK'):
-    extensions += 'sphinxcontrib.spelling',
     spelling_show_suggestions = True
     spelling_lang = 'en_US'
     spelling_show_suggestions = True
@@ -32,14 +32,18 @@ master_doc = 'index'
 project = 'dbassembly'
 year = '2016'
 author = 'Thomas Schraitle'
+author_email = '<toms@suse.de>'
 copyright = '{0}, {1}'.format(year, author)
 version = release = '0.1.0'
+
+github_project = "tomschr/dbassembly"
+github_url = "https://github.com/{}".format(github_project)
 
 pygments_style = 'trac'
 templates_path = ['.']
 extlinks = {
-    'issue': ('https://github.com/tomschr/dbassembly/issues/%s', '#'),
-    'pr': ('https://github.com/tomschr/dbassembly/pull/%s', 'PR #'),
+    'issue': ('{}/issues/%s'.format(github_url), '#'),
+    'pr': ('{}/pull/%s'.format(github_url), 'PR #'),
 }
 # on_rtd is whether we are on readthedocs.org
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
@@ -55,7 +59,11 @@ html_sidebars = {
 }
 html_short_title = '%s-%s' % (project, version)
 
-if 'sphinx.ext.napoleon' in extensions:
-    napoleon_use_ivar = True
-    napoleon_use_rtype = False
-    napoleon_use_param = False
+rst_epilog = """
+.. |author| replace:: {author}
+.. |author_email| replace:: {author_email}
+.. |github_url| replace:: {github_url}
+""".format(author=author,
+           author_email=author_email,
+           github_url=github_url,
+           )

@@ -57,11 +57,12 @@ def parsecli(argv=None):
     :rtype: :py:class:`docopt.Dict`
     """
     _doc = """
-usage: dbassembly -h | --help
-       dbassembly --version
-       dbassembly [-v]... [options] [--] <assembly> [<output>]
+usage:
+    dbassembly -h | --help
+    dbassembly --version
+    dbassembly [-v]... [options] [--] <assembly> [<output>]
 
-  global options:
+global options:
     --version
         show program version
     -b <basedir> --basedir=<basedir>
@@ -103,7 +104,7 @@ def main(argv=None):
         sys.exit(1)
     except DocoptExit as error:
         # exception thrown by docopt, results in usage message
-        logger.log.error(error)
+        print(error, file=sys.stderr)
         sys.exit(1)
     except SystemExit:
         # user exception, program aborted by user
