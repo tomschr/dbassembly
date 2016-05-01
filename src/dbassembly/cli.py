@@ -47,6 +47,7 @@ from . import __proc__
 from . import __version__
 from . import logger
 from .app import App
+from .exceptions import NoAssemblyFileError
 
 
 def parsecli(argv=None):
@@ -98,14 +99,17 @@ def main(argv=None):
         result = app.process()
         logger.log.debug("app=%s", app)
         logger.log.debug("Result=%s", result)
-        return result
+        return 0
+    except NoAssemblyFileError as error:
+        logger.log.error(error)
+        return 2
     except KeyboardInterrupt:  # pragma: nocover
         logger.log.error('%s aborted by keyboard interrupt' % __proc__)
-        sys.exit(1)
+        return 1
     except DocoptExit as error:
         # exception thrown by docopt, results in usage message
         print(error, file=sys.stderr)
-        sys.exit(1)
+        return 1
     except SystemExit:
         # user exception, program aborted by user
         sys.exit(1)

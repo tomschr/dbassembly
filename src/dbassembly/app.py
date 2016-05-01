@@ -21,14 +21,12 @@
 
 from lxml import etree
 
-from . import NS
+from .core import ASSEMBLY_TAG
 from .exceptions import NoAssemblyFileError
 from .logger import log
 
 
 class App(object):
-    ASSEMBLY_TAG = etree.QName('{{{}}}assembly'.format(NS['DB']))
-
     def __init__(self, args=None):
         self.args = {} if args is None else args
         self.assembly = self.args.get('<assembly>')
@@ -40,8 +38,9 @@ class App(object):
         log.debug("xml %s", self.xml)
         self.root = self.xml.getroot()
         name = etree.QName(self.root)
-        if name != self.ASSEMBLY_TAG:
-            raise NoAssemblyFileError('Got %s' % str(name))
+        if name != ASSEMBLY_TAG:
+            raise NoAssemblyFileError('Got %r element '
+                                      'instead assembly.' % str(name))
 
         return self.assembly
 

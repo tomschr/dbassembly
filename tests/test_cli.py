@@ -7,25 +7,23 @@ from dbassembly.cli import parsecli
 from .conftest import raises
 
 
-@raises(SystemExit)
 def test_main():
-    main(['--murx'])
+    result = main(['--murx'])
+    assert result == 1
 
-@raises(SystemExit)
+
 @patch('dbassembly.cli.main')
 def test_main_with_KeyboardInterrupt(mock_kb):
     mock_kb.side_effect = KeyboardInterrupt
-    main([])
+    result = main([])
+    assert result == 1
 
-def test_main_with_assembly_file():
-    assembly = 'assembly.xml'
-    cli = parsecli([assembly])
-    assert cli['<assembly>'] == assembly
+def test_main_with_assembly_file(assembly):
+    result = main([assembly.strpath])
+    assert result == 0
 
-def test_main_with_assembly_and_output_file():
-    assembly = 'assembly.xml'
-    output = 'output.xml'
-    cli = parsecli([assembly, output])
-    assert cli['<assembly>'] == assembly
-    assert cli['<output>'] == output
-
+def test_main_with_assembly_and_output_file(assembly):
+    tmpdir = assembly.dirpath()
+    output = tmpdir.join('output.xml')
+    result = main([assembly.strpath, output.strpath])
+    assert result == 0

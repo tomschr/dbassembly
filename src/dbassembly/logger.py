@@ -234,7 +234,7 @@ class Logger(logging.Logger):
         )
         self.log_level = self.level
 
-    def getLogLevel(self):
+    def getLogLevel(self):  # flake8: noqa
         """
         Return currently used log level
 
@@ -243,7 +243,7 @@ class Logger(logging.Logger):
         """
         return self.log_level
 
-    def setLogLevel(self, level):
+    def setLogLevel(self, level):  # flake8: noqa
         """
         Set custom log level for all console handlers
 

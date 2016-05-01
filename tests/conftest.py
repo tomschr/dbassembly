@@ -19,6 +19,7 @@
 # you may find current contact information at www.suse.com
 
 from functools import wraps
+import pytest
 
 
 class raises(object): # pragma: no cover
@@ -44,3 +45,20 @@ class raises(object): # pragma: no cover
                 raise AssertionError(message)
         newfunc = wraps(func)(newfunc)
         return newfunc
+
+
+# ------------------------------------------------------
+# Fixtures
+#
+
+@pytest.fixture
+def assembly(tmpdir):
+    """Fixture: creates a file 'assembly.xml' in a temporary
+       directory with an empty DocBook5 root element '<assembly>'.
+
+       :return: Assembly file
+       :rtype: :py:class:'py.path.local'
+    """
+    xmlfile = tmpdir.join('assembly.xml')
+    xmlfile.write("<assembly xmlns='http://docbook.org/ns/docbook'/>")
+    return xmlfile
