@@ -8,6 +8,7 @@ __pycache__/
 *.~
 *~
 *.swp
+.idea
 
 # C extensions
 *.so
