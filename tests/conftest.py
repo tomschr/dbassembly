@@ -20,6 +20,12 @@
 
 from functools import wraps
 import pytest
+from py.path import local
+
+try:
+    from dbassembly.core import NS
+except ImportError:
+    pass
 
 
 class raises(object): # pragma: no cover
@@ -59,6 +65,42 @@ def assembly(tmpdir):
        :return: Assembly file
        :rtype: :py:class:'py.path.local'
     """
+    content="""<assembly xmlns={dbns!r}>
+   <title>Test Assembly</title>
+  <resources>
+    <resource href="urn:x-pytest:foo" xml:id="topic1"/>
+  </resources>
+
+  <structure xml:id="result-topic1" resourceref="topic1"/>
+</assembly>
+    """
     xmlfile = tmpdir.join('assembly.xml')
-    xmlfile.write("<assembly xmlns='http://docbook.org/ns/docbook'/>")
+    xmlfile.write(content.format(dbns=NS['db']))
     return xmlfile
+
+
+# ------------------------------------------------------
+# General
+#
+# http://pytest.org/latest/parametrize.html#basic-pytest-generate-tests-example
+def pytest_generate_tests(metafunc):
+    """Generate testcases for all *.case.xml files
+    """
+    cases = local(__file__).dirpath() / "cases"
+    if 'xmltestcase' in metafunc.fixturenames:
+        testcases = cases.listdir('*.case.xml', sort=True)
+
+        # Create tuple of (original, outputfile, errorfile)
+        result = []
+        for case in testcases:
+            b = case.basename
+            out = b.replace('.case.xml', '.out.xml')
+            err = b.replace('.case.xml', '.err.xml')
+            out = case.new(basename=out)
+            err = case.new(basename=err)
+            result.append((case, out, err))
+
+        ids=[i.basename for i in testcases]
+        metafunc.parametrize("xmltestcase",
+                             result,
+                             ids=ids)

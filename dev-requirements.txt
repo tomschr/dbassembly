@@ -6,7 +6,7 @@ pytest
 pytest-cov
 mock
 
-## virtualenv-based automation of test activities_
+## virtualenv-based automation of test activities:
 tox
 ## Version-bump your software with a single command:
 bumpversion
@@ -18,3 +18,5 @@ flake8
 # coverage
 ## Code checker:
 prospector
+## collection of helpers and mock objects:
+testfixtures

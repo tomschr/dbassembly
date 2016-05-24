@@ -6,8 +6,8 @@ from dbassembly.core import db
 
 def test_db():
     tag = db('foo')
-    assert tag == '{{{}}}foo'.format(NS['DB'])
+    assert tag == '{{{}}}foo'.format(NS['db'])
 
 def test_assembly_tag():
-    assembly = '{{{}}}assembly'.format(NS['DB'])
+    assembly = '{{{}}}assembly'.format(NS['db'])
     assert assembly == str(ASSEMBLY_TAG)

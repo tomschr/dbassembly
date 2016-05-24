@@ -34,8 +34,3 @@ Contains global variables
 
 __version__ = "0.1.0"
 __proc__ = "dbassembly"
-
-NS = dict(DB="http://docbook.org/ns/docbook",
-          XL="http://www.w3.org/1999/xlink",
-          XI="http://www.w3.org/2001/XInclude",
-          )

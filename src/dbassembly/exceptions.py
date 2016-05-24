@@ -19,7 +19,7 @@
 # you may find current contact information at www.suse.com
 
 
-class DBAssemblyError(BaseException):
+class BaseAssemblyError(BaseException):
     """
     Base class to handle all known exceptions.
 
@@ -37,5 +37,14 @@ class DBAssemblyError(BaseException):
         return format(self.message)
 
 
-class NoAssemblyFileError(DBAssemblyError):
+class NoAssemblyFileError(BaseAssemblyError):
+    pass
+
+class MissingAttributeRessource(BaseAssemblyError):
+    pass
+
+class NoStructure(BaseAssemblyError):
+    pass
+
+class ResourceNotFoundError(BaseAssemblyError):
     pass

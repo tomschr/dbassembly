@@ -39,15 +39,20 @@ Why does this file exist, and why not put this in __main__?
 """
 
 import sys
+import os
 
 from docopt import DocoptExit
 from docopt import docopt
+from lxml.etree import XMLSyntaxError
 
 from . import __proc__
 from . import __version__
-from . import logger
 from .app import App
-from .exceptions import NoAssemblyFileError
+from .exceptions import (NoAssemblyFileError,
+                         MissingAttributeRessource,
+                         NoStructure,
+                         )
+from .logger import setloglevel, log
 
 
 def parsecli(argv=None):
@@ -63,28 +68,86 @@ usage:
     dbassembly --version
     dbassembly [-v]... [options] [--] <assembly> [<output>]
 
-global options:
+Global options:
     --version
         show program version
+    -v  raise verbosity
+
+Input options:
     -b <basedir> --basedir=<basedir>
         define base directory of processing
     -f=<format> --format=<format>
-        select <format> from assembly
-    -v  raise verbosity
+        specifies target output format.
+        Multiple output formats separated by ';' may be specified.
+        For example, "pdf;expert" means output format is "pdf" OR
+        "expert".
+    -s=<struct_id> --struct=<struct_id>
+        specifies the xml:id of the structure to processed.
+        (default: first found structure)
+    -p=<profile>, --profile=<profile>
+        specifies a profiling attribut; <profile> has the syntax:
+          attribute_name=attribute_value
+        If you need more, separate them by semicolon, for example:
+        -p "os=a;arch=x86"
 
+Output options:
+    --pretty-print
+        pretty-print realized document
+
+Arguments:
     <assembly>
         DocBook 5 assembly file
     <output>
-        save "flat" DocBook document (default goes to stdout)
+        optional; save "flat" DocBook document (default goes to stdout)
     """
     cli = docopt(_doc,
+                 help=True,
                  version='%s version %s' % (__proc__, __version__),
-                 options_first=True,
+                 # options_first=True,
                  argv=argv,
                  )
-    logger.log.info("docops: %s", cli)
-    logger.setloglevel(cli['-v'])
     return cli
+
+
+def relativepath(path):
+    """Returns path relative to current directory
+
+    :param str path: path
+    :return: relative path
+
+    >>> import os; os.chdir("/usr")
+    >>>
+    """
+    return os.path.relpath(path, start=os.getcwd())
+
+
+def main_app(cli):
+    """Main entry point for testing purpose
+
+    :param dict cli: dictionary from docopt parsing
+    :return: success code (0 => ok; !=0 => error)
+    """
+    try:
+        app = App(cli)
+        return app.process()
+    #except KeyboardInterrupt:  # pragma: nocover
+    #    logger.log.error('%s aborted by keyboard interrupt' % __proc__)
+    #    return 1
+    except (MissingAttributeRessource, NoStructure) as error:
+        log.error(error)
+        # print(error, file=sys.stderr)
+        return 10
+    except (OSError, ) as error:
+        log.error(error)
+        return 20
+    except (NoAssemblyFileError, XMLSyntaxError) as error:
+        # log.error(error)
+        log.error("%s\n"
+                  "Reason: Probably %r is not an assembly file." % (
+                      error,
+                      relativepath(cli['<assembly>'])))
+        return 30
+    return 0
 
 
 def main(argv=None):
@@ -93,27 +156,15 @@ def main(argv=None):
     :param list argv: Arguments to parse or None (=use `sys.argv`)
     :return: result from :func:`App.process`
     """
+    # argv = argv if argv else sys.argv
+
     try:
         cli = parsecli(argv)
-        app = App(cli)
-        result = app.process()
-        logger.log.debug("app=%s", app)
-        logger.log.debug("Result=%s", result)
-        return 0
-    except NoAssemblyFileError as error:
-        logger.log.error(error)
-        return 2
-    except KeyboardInterrupt:  # pragma: nocover
-        logger.log.error('%s aborted by keyboard interrupt' % __proc__)
-        return 1
     except DocoptExit as error:
         # exception thrown by docopt, results in usage message
         print(error, file=sys.stderr)
         return 1
-    except SystemExit:
-        # user exception, program aborted by user
-        sys.exit(1)
-    except Exception as error:
-        # exception we did no expect, show python backtrace
-        logger.log.error('Unexpected error: %s', error)
-        raise
+
+    setloglevel(cli['-v'])
+    log.debug(cli)
+    return main_app(cli)

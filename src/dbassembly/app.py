@@ -22,27 +22,72 @@
 from lxml import etree
 
 from .core import ASSEMBLY_TAG
-from .exceptions import NoAssemblyFileError
-from .logger import log
+from .docbook import assembly
+from .exceptions import NoAssemblyFileError, MissingAttributeRessource
+
+import sys
+import os
+
+
+def loadassembly(assembly):
+    """Load assembly file and return tree
+
+    :param str assembly: assembly filename
+    :return: ElementTree
+    """
+    xml = etree.parse(assembly)
+    root = xml.getroot()
+    if etree.QName(root) != ASSEMBLY_TAG:
+        raise NoAssemblyFileError('Got %r element '
+                                  'instead of <assembly>.' % root.tag)
+    return xml
 
 
 class App(object):
+    """Context App-class
+    """
     def __init__(self, args=None):
+        """Constructor
+
+        :param dict args: Dictionary which contains at least
+          the followin keys:
+          '<assembly>': a filename to the assembly XML file
+          '<output>: None, a string, or a file-like object
+        """
+        self.xml, self.root = None, None
         self.args = {} if args is None else args
         self.assembly = self.args.get('<assembly>')
-        self.output = self.args.get('<output>')
+        # Option <output> can be None (=sys.stdout, the default),
+        # a string, or a file-like object
+        if self.args.get('<output>') is None:
+            self.output = sys.stdout
+        elif isinstance(self.args.get('<output>'), str):
+            out = self.args.get('<output>')
+            if os.path.exists(out):
+                raise FileExistsError("File %r already exists" % out)
+            self.output = open(out, 'w')
+        else:
+            # Assume it's a file-like object
+            self.output = self.args.get('<output>')
+
+    def loadAssembly(self):
+        """Load assembly file
+        """
+        self.xml = loadassembly(self.assembly)
+        self.root = self.xml.getroot()
 
     def process(self):
-        log.debug("processing assembly...")
-        self.xml = etree.parse(self.assembly)
-        log.debug("xml %s", self.xml)
-        self.root = self.xml.getroot()
-        name = etree.QName(self.root)
-        if name != ASSEMBLY_TAG:
-            raise NoAssemblyFileError('Got %r element '
-                                      'instead assembly.' % str(name))
-
-        return self.assembly
+        """Process the assembly file
+        """
+        self.loadAssembly()
+        result = assembly(self.xml, self.output)
+        self.output.write(etree.tostring(result,
+                                         pretty_print=self.args.get('--pretty-print'),
+                                         # xml_declaration=True,
+                                         encoding='unicode',
+                                         )
+                          )
+        return 0
 
     def __repr__(self):
         return "<%s: %r -> %r>" % (self.__class__.__name__,

@@ -21,9 +21,12 @@
 from lxml.etree import QName
 
 
-NS = dict(DB="http://docbook.org/ns/docbook",
-          XL="http://www.w3.org/1999/xlink",
-          XI="http://www.w3.org/2001/XInclude",
+NS = dict(db="http://docbook.org/ns/docbook",
+          xlink="http://www.w3.org/1999/xlink",
+          xi="http://www.w3.org/2001/XInclude",
+          xml="http://www.w3.org/XML/1998/namespace",
+          trans="http://docbook.org/ns/transclude",
+          local="http://www.w3.org/2001/XInclude/local-attributes",
           )
 
 
@@ -37,8 +40,25 @@ def db(tag):
     :return: DocBook5 tag name string
     :rtype: str
     """
-    return '{{{}}}{}'.format(NS['DB'], tag)
+    return '{{{}}}{}'.format(NS['db'], tag)
+
+
+def xmlattr(attrib):
+    """Creates an XML attribute name in Clark notation
+
+    >>> xmlattr("id")
+    '{http://www.w3.org/XML/1998/namespace}id'
+    >>> xmlattr("lang")
+    '{http://www.w3.org/XML/1998/namespace}lang'
+
+    :param str tag: name of tag
+    :return: XML attribute name string
+    :rtype: str
+    """
+    return '{{{}}}{}'.format(NS['xml'], attrib)
+
 
 ASSEMBLY_TAG = QName(db('assembly'))
 RESOURCES_TAG = QName(db('resources'))
+RESOURCE_TAG = QName(db('resource'))
 STRUCTURE_TAG = QName(db('structure'))

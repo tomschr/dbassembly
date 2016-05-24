@@ -18,7 +18,7 @@ include README.rst
 include dev-requirements.txt
 include requirements.txt
 
-include tox.ini .travis.yml appveyor.yml
+include tox.ini .travis.yml
 
 recursive-include tests/data *
 recursive-include tests/relaxng *

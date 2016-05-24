@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="/usr/share/xml/docbook/schema/rng/5.1/docbookxi.rnc" type="application/relax-ng-compact-syntax"?>
+<topic version="5.1" xml:id="t1"
+    xmlns="http://docbook.org/ns/docbook"
+       xmlns:xlink="http://www.w3.org/1999/xlink"
+       xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Title of Topic #3</title>
+
+  <para>Paragraph <phrase userlevel="advanced">(that is, element <tag
+  class="element">para</tag>)</phrase> contained in topic #1.</para>
+  
+  <section xml:id="sec">
+    <title>Subtitle of Topic #3</title>
+    <para>The quick brown fox jumps over the lazy dog.</para>
+  </section>
+</topic>

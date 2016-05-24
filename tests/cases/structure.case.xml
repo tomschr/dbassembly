@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="file:relaxng/assembly.rnc" type="application/relax-ng-compact-syntax"?>
+<assembly xmlns="http://docbook.org/ns/docbook">
+  <title>Test Assembly</title>
+  <resources>
+    <resource xml:id="topic1" href="data/topic1.xml"/>
+  </resources>
+
+  <structure xml:id="article">
+    <output renderas="article" />
+    <module resourceref="topic1"/>
+  </structure>
+</assembly>
