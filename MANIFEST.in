@@ -9,21 +9,17 @@ include .coveragerc
 include .cookiecutterrc
 include .editorconfig
 include setup.cfg
-
 include AUTHORS.rst
 include CHANGELOG.rst
 include CONTRIBUTING.rst
 include LICENSE
 include README.rst
-include dev-requirements.txt
-include requirements.txt
-
+include dev-requirements.txt requirements.txt
 include tox.ini .travis.yml
 
 recursive-include tests/data *
 recursive-include tests/relaxng *
 
-recursive-exclude docs/build html singlehtml .doctrees/* _static _static/* *.html *.js .buildinfo *.inv .doctrees _sources _sources/*
-exclude docs/build
+recursive-exclude docs/_build *
 
 global-exclude *.py[cod] __pycache__ *.so *.dylib *.kate-swp *.swp *~
