@@ -85,7 +85,7 @@ setup(
     ],
     install_requires=[
         # eg: 'aspectlib==1.1.1', 'six>=1.7',
-        'docopt', 'lxml',
+        'docopt', 'lxml', 'py',
     ],
     extras_require={
         # eg:
