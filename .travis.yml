@@ -57,5 +57,4 @@ notifications:
     on_failure: always
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
-  - tox -e doc_travis_deploy
+  - ./.travis-deploy.sh
