@@ -1,5 +1,5 @@
 =============================
-DocBook Assemblies v|version|
+DocBook Assemblies |version|
 =============================
 
 Managing DocBook assemblies with :command:`dbassembly`.
