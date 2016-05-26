@@ -109,16 +109,14 @@ Arguments:
     return cli
 
 
-def relativepath(path):
-    """Returns path relative to current directory
+def basename(path):
+    """Returns basename of current path
 
     :param str path: path
     :return: relative path
 
-    >>> import os; os.chdir("/usr")
-    >>>
     """
-    return os.path.relpath(path, start=os.getcwd())
+    return os.path.basename(path)
 
 
 def main_app(cli):
@@ -143,9 +141,12 @@ def main_app(cli):
     except (NoAssemblyFileError, XMLSyntaxError) as error:
         # log.error(error)
         log.error("%s\n"
-                  "Reason: Probably %r is not an assembly file." % (
+                  "Reason: Probably %r is not an assembly file."
+                  "" % (
                       error,
-                      relativepath(cli['<assembly>'])))
+                      basename(cli['<assembly>'])
+                      )
+                  )
         return 30
     return 0
 
