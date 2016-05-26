@@ -34,6 +34,7 @@ from lxml import etree
 import os
 from urllib.parse import urljoin, urlparse
 
+
 def getresource(tree):
     """Creates mapping between xml:id -> href
 
@@ -102,7 +103,7 @@ def getxmlbase(base, path):
     # Check if we have a local path:
     if b.scheme == '':
         # "/" at the end needed for urljoin
-        base = os.path.abspath(base)+"/"
+        base = os.path.abspath(base) + "/"
     if p.scheme == 'file':
         path = p.path
 

@@ -130,7 +130,7 @@ def main_app(cli):
     try:
         app = App(cli)
         return app.process()
-    #except KeyboardInterrupt:  # pragma: nocover
+    # except KeyboardInterrupt:  # pragma: nocover
     #    logger.log.error('%s aborted by keyboard interrupt' % __proc__)
     #    return 1
     except (MissingAttributeRessource, NoStructure) as error:

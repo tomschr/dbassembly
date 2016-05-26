@@ -40,11 +40,14 @@ class BaseAssemblyError(BaseException):
 class NoAssemblyFileError(BaseAssemblyError):
     pass
 
+
 class MissingAttributeRessource(BaseAssemblyError):
     pass
 
+
 class NoStructure(BaseAssemblyError):
     pass
+
 
 class ResourceNotFoundError(BaseAssemblyError):
     pass

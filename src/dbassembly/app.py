@@ -23,7 +23,7 @@ from lxml import etree
 
 from .core import ASSEMBLY_TAG
 from .docbook import assembly
-from .exceptions import NoAssemblyFileError, MissingAttributeRessource
+from .exceptions import NoAssemblyFileError
 
 import sys
 import os
