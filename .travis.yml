@@ -6,24 +6,21 @@ env:
     - LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
     - SEGFAULT_SIGNALS=all
   matrix:
-    - TOXENV=check
-    - TOXENV=docs
+    - TOXENV=check,docs,doc_travis
 
-#    - TOXENV=3.3,doc_travis
-#    - TOXENV=3.4,doc_travis
-#    - TOXENV=3.5,doc_travis
 
 matrix:
+  fast_finish: true
   include:
     - python: 3.3
-      env: TOXENV=3.3,doc_travis
+      env: TOXENV=3.3
     - python: 3.4
-      env: TOXENV=3.4,doc_travis
+      env: TOXENV=3.4
     - python: 3.5
-      env: TOXENV=3.5,doc_travis
+      env: TOXENV=3.5
     # - "nightly" currently points to 3.6-dev
     - python: nightly
-      env: TOXENV=3.6,doc_travis
+      env: TOXENV=3.6
 
 
 before_install:
