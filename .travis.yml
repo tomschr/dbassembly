@@ -9,10 +9,10 @@ env:
     - TOXENV=check
     - TOXENV=docs
 
-    - TOXENV=3.3-cover,doc_travis
-    - TOXENV=3.4-cover,doc_travis
-# For some reason, Travis fails for 3.5
-#    - TOXENV=3.5-cover,doc_travis
+    - TOXENV=3.3,doc_travis
+    - TOXENV=3.4,doc_travis
+    - TOXENV=3.5,doc_travis
+
 
 before_install:
   - python --version
@@ -21,8 +21,7 @@ before_install:
 
 install:
   - pip install -U pip setuptools
-  # See https://github.com/Syntaf/travis-sphinx/pull/5
-  - pip install tox travis-sphinx==1.2.0
+  - pip install tox travis-sphinx>=1.4.1
   - virtualenv --version
   - easy_install --version
   - pip --version
