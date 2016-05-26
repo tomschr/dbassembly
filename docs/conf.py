@@ -34,7 +34,7 @@ year = '2016'
 author = 'Thomas Schraitle'
 author_email = '<toms@suse.de>'
 copyright = '{0}, {1}'.format(year, author)
-version = release = '0.1.0'
+version = release = '0.1.2'
 
 github_project = "tomschr/dbassembly"
 github_url = "https://github.com/{}".format(github_project)
