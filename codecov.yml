@@ -7,4 +7,5 @@ coverage:
 comment:
     branches:
         - "!hotfix/*"
+        - "!gh-pages"
     layout: "header, diff, changes"
