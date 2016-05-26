@@ -1,8 +1,5 @@
 language: python
-python:
-    - "3.3"
-    - "3.4"
-    - "3.5"
+python: "3.4"
     # - "nightly" # currently points to 3.6-dev
 sudo: false
 env:
@@ -16,6 +13,15 @@ env:
     - TOXENV=3.3,doc_travis
     - TOXENV=3.4,doc_travis
     - TOXENV=3.5,doc_travis
+
+matrix:
+  include:
+    - python: 3.3
+      env: TOXENV=3.3,doc_travis
+    - python: 3.4
+      env: TOXENV=3.4,doc_travis
+    - python: 3.5
+      env: TOXENV=3.5,doc_travis
 
 
 before_install:
