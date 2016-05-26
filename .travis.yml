@@ -27,6 +27,7 @@ install:
   - easy_install --version
   - pip --version
   - tox --version
+  - echo "$PWD"
 
 script:
   - tox -v
