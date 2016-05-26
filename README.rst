@@ -38,6 +38,3 @@ Overview
 
 Manage DocBook Assemblies
 
-.. toctree::
-
-    docs/readme
