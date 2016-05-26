@@ -142,10 +142,7 @@ def main_app(cli):
         # log.error(error)
         log.error("%s\n"
                   "Reason: Probably %r is not an assembly file."
-                  "" % (
-                      error,
-                      basename(cli['<assembly>'])
-                      )
+                  "" % (error, basename(cli['<assembly>']))
                   )
         return 30
     return 0
