@@ -1,14 +1,15 @@
 #
-from dbassembly.cli import main_app
-from dbassembly.exceptions import BaseAssemblyError
-from dbassembly.logger import log
-
 #
 from io import StringIO
+from unittest.mock import patch
+
 from lxml import etree
 from py.path import local
 from testfixtures import LogCapture
-from unittest.mock import patch
+
+from dbassembly.cli import main_app
+from dbassembly.exceptions import BaseAssemblyError
+from dbassembly.logger import log
 
 
 def test_cases(xmltestcase):

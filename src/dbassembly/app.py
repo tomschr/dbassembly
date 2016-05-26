@@ -19,14 +19,14 @@
 # you may find current contact information at www.suse.com
 
 
+import os
+import sys
+
 from lxml import etree
 
 from .core import ASSEMBLY_TAG
 from .docbook import assembly
 from .exceptions import NoAssemblyFileError
-
-import sys
-import os
 
 
 def loadassembly(assembly):

@@ -38,8 +38,8 @@ Why does this file exist, and why not put this in __main__?
   Also see (1) from http://click.pocoo.org/5/setuptools/#setuptools-integration
 """
 
-import sys
 import os
+import sys
 
 from docopt import DocoptExit
 from docopt import docopt
@@ -48,11 +48,11 @@ from lxml.etree import XMLSyntaxError
 from . import __proc__
 from . import __version__
 from .app import App
-from .exceptions import (NoAssemblyFileError,
-                         MissingAttributeRessource,
-                         NoStructure,
-                         )
-from .logger import setloglevel, log
+from .exceptions import MissingAttributeRessource
+from .exceptions import NoAssemblyFileError
+from .exceptions import NoStructure
+from .logger import log
+from .logger import setloglevel
 
 
 def parsecli(argv=None):
