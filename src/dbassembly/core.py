@@ -50,7 +50,6 @@ def db(tag):
     :return: DocBook5 tag name string
     :rtype: str
     """
-    # return '{{{}}}{}'.format(NS['db'], tag)
     return str(QName(NS['db'], tag))
 
 
@@ -66,7 +65,7 @@ def xmlattr(attrib):
     :return: XML attribute name string
     :rtype: str
     """
-    return '{{{}}}{}'.format(NS['xml'], attrib)
+    return str(QName(NS['xml'], attrib))
 
 
 ASSEMBLY_TAG = QName(db('assembly'))
