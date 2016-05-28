@@ -22,5 +22,6 @@ recursive-include tests/data *
 recursive-include tests/relaxng *
 
 recursive-exclude docs/_build *
+recursive-exclude src/dbassembly *.py,cover
 
 global-exclude *.py[cod] __pycache__ *.so *.dylib *.kate-swp *.swp *~

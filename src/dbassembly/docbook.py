@@ -35,6 +35,35 @@ from .exceptions import ResourceNotFoundError
 from .logger import log
 
 
+def handleitem(item, position):
+    """Handle item and return content of href attribute
+
+    :param item: Element object
+    :param tuple position: current position of current
+        <resources> element and <resource> element
+        (starting both from 1)
+    :return: string content of href attribute or exception
+    :throws: MissingAttributeRessource
+    """
+    xmlid = item.attrib.get(xmlattr('id'))
+    href = item.attrib.get('href')
+    error = 1 if href is None else 0
+    error += 1 if xmlid is None else 0
+    if error > 0:
+        name = 'href' if href is None else 'xml:id'
+        msg = 'Missing %s in resources[%i]/resource[%i]' % (name,
+                                                            position[0],
+                                                            position[1])
+        try:
+            description = item[0].text.strip()
+            msg += ": %r" % description
+        except IndexError:
+            pass
+
+        raise MissingAttributeRessource(msg)
+    return xmlid, href
+
+
 def getresource(tree):
     """Creates mapping between xml:id -> href
 
@@ -44,21 +73,7 @@ def getresource(tree):
     resource = {}
     for i, res in enumerate(tree.iter(RESOURCES_TAG.text), 1):
         for j, item in enumerate(res.iter(RESOURCE_TAG.text), 1):
-            xmlid = item.attrib.get(xmlattr('id'))
-            href = item.attrib.get('href')
-            error = 1 if href is None else 0
-            error += 1 if xmlid is None else 0
-            if error > 0:
-                name = 'href' if href is None else 'xml:id'
-                msg = 'Missing %s in resources[%i]/resource[%i]' % \
-                      (name, i, j)
-                try:
-                    description = item[0].text.strip()
-                    msg += ": %r" % description
-                except IndexError:
-                    pass
-
-                raise MissingAttributeRessource(msg)
+            xmlid, href = handleitem(item, (i, j))
             resource[xmlid] = href
     log.debug("Found resources: %r", resource)
     return resource
