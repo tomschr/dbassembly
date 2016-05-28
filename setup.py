@@ -42,7 +42,7 @@ def read(*names, **kwargs):
 
 setup(
     name='dbassembly',
-    version='0.1.2',
+    version='0.1.3',
     license='BSD',
     description='Manage DocBook Assemblies',
     long_description='%s\n%s' % (
