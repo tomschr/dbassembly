@@ -17,12 +17,12 @@ ratings:
   paths:
   - "**.py"
 exclude_paths:
-- *.yml
-- *.rst
-- *requirements.txt
-- tests/**/*
-- docs/**/*
-- MANIFEST.in
-- setup.*
-- tox.ini
-- LICENSE
+  - "*.yml"
+  - "*.rst"
+  - "*requirements.txt"
+  - "tests/**/*"
+  - "docs/**/*"
+  - "MANIFEST.in"
+  - "setup.*"
+  - "tox.ini"
+  - "LICENSE"
