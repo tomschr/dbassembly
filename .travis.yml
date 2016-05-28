@@ -37,7 +37,8 @@ before_install:
 
 install:
   - pip install -U pip setuptools
-  - pip install codecov>=1.4.0 tox travis-sphinx>=1.4.1
+  - pip install tox travis-sphinx>=1.4.1
+  - pip install codecov>=1.4.0 codeclimate-test-reporter
   - virtualenv --version
   - easy_install --version
   - pip --version
