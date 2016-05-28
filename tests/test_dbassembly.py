@@ -24,7 +24,7 @@ def test_cases(xmltestcase):
     with patch('dbassembly.app.sys.stdout', new=StringIO()) as mock_sys:
         with LogCapture(names=(log.name,)) as ll:
             result = main_app({'<assembly>': str(original),
-                               '<output>': None})
+                               '--output': None})
 
     outputerr = errorfile.read().rstrip() if errorfile.isfile() else ""
     outputxml = outputfile.read().rstrip() if outputfile.isfile() else ""

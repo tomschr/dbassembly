@@ -1,11 +1,14 @@
 codecov:
-    branch: master,develop,feature/*
+    branch: "develop"
 
 coverage:
     range: "80...100"
 
 comment:
     branches:
+        - master
+        - develop
+        - feature/*
         - "!hotfix/*"
         - "!gh-pages"
     layout: "header, diff, changes"

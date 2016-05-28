@@ -6,6 +6,8 @@ pytest
 pytest-cov
 mock
 
+## collection of helpers and mock objects:
+testfixtures
 ## virtualenv-based automation of test activities:
 tox
 ## Version-bump your software with a single command:
@@ -14,11 +16,11 @@ bumpversion
 wheel
 ## Python style guide checker:
 flake8
-## for test coverage:
-# coverage
 ## Code checker:
 prospector
-## collection of helpers and mock objects:
-testfixtures
-## Codeclimate test reporter:
+## for test coverage:
+# coverage
+## Test reporters for Codecov, Scrutinizer, and Code Climate:
 codeclimate-test-reporter
+codecov
+scrutinizer-ocular
