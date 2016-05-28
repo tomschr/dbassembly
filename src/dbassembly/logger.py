@@ -28,12 +28,12 @@ __all__ = ['log']
 log = logging.getLogger("dbasmy")
 
 
-def setloglevel(verbose):
+def setloglevel(verbose):  # pragma: no cover
     """Set log level according to verbose argument
 
     :param int verbose: verbose level to set
     """
-    global log
+    global log  # pylint: disable=global-variable-not-assigned
     #: Dictionary: Log levels to map verbosity level
     #: to logging values
     LOGLEVELS = {None: logging.NOTSET,

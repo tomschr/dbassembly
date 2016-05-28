@@ -18,7 +18,7 @@
 # To contact SUSE about this file by physical or electronic mail,
 # you may find current contact information at www.suse.com
 
-from lxml.etree import QName
+from lxml.etree import QName as _QName
 
 
 NS = dict(db="http://docbook.org/ns/docbook",
@@ -28,6 +28,16 @@ NS = dict(db="http://docbook.org/ns/docbook",
           trans="http://docbook.org/ns/transclude",
           local="http://www.w3.org/2001/XInclude/local-attributes",
           )
+
+
+class QName(_QName):
+    __doc__ = _QName.__doc__
+
+    def __str__(self):
+        return self.text
+
+    def __repr__(self):
+        return "<%s: %r>" % (self.__class__.__name__, self.text)
 
 
 def db(tag):
@@ -40,7 +50,8 @@ def db(tag):
     :return: DocBook5 tag name string
     :rtype: str
     """
-    return '{{{}}}{}'.format(NS['db'], tag)
+    # return '{{{}}}{}'.format(NS['db'], tag)
+    return str(QName(NS['db'], tag))
 
 
 def xmlattr(attrib):

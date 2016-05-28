@@ -8,6 +8,9 @@ env:
   matrix:
     - TOXENV=check,docs,doc_travis
 
+addons:
+    code_climate:
+        repo_token: fa6fc1a6c242fbdf483adf9d4743e1fc032183ae0f164bcec61e222e13623ead
 
 matrix:
   fast_finish: true
@@ -27,10 +30,15 @@ before_install:
   - python --version
   - uname -a
   - lsb_release -a
+  - echo "TRAVIS_PULL_REQUEST=$TRAVIS_PULL_REQUEST"
+  - echo "TRAVIS_BRANCH=$TRAVIS_BRANCH"
+  - echo "TRAVIS_TAG=$TRAVIS_TAG"
+  - echo "repo=$TRAVIS_REPO_SLUG"
 
 install:
   - pip install -U pip setuptools
   - pip install tox travis-sphinx>=1.4.1
+  - pip install codecov>=1.4.0 codeclimate-test-reporter
   - virtualenv --version
   - easy_install --version
   - pip --version
@@ -57,5 +65,8 @@ notifications:
     on_failure: always
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  # - bash <(curl -s https://codecov.io/bash)
+  - mv -v .coverage.* .coverage
+  - codecov --token=$CODECOV_TOKEN
+  - codeclimate-test-reporter --token $CODECLIMATE_REPO_TOKEN
   - ./.travis-deploy.sh
