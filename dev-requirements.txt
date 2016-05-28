@@ -20,3 +20,5 @@ flake8
 prospector
 ## collection of helpers and mock objects:
 testfixtures
+## Codeclimate test reporter:
+codeclimate-test-reporter

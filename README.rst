@@ -4,7 +4,7 @@ Overview
 
 .. start-badges
 
-|travis| |landscape| |codecov| |scrutinizer| |requires|
+|travis| |landscape| |codecov| |scrutinizer| |codeclimate| |requires|
 
 .. sidebar:: Work in Progress
 
@@ -25,6 +25,10 @@ Overview
 .. |codecov| image:: https://codecov.io/github/tomschr/dbassembly/coverage.svg?branch=develop
     :alt: Coverage Status
     :target: https://codecov.io/github/tomschr/dbassembly
+
+.. |codeclimate| image:: https://codeclimate.com/github/tomschr/dbassembly/badges/gpa.svg
+   :target: https://codeclimate.com/github/tomschr/dbassembly
+   :alt: Code Climate
 
 .. |landscape| image:: https://landscape.io/github/tomschr/dbassembly/develop/landscape.svg?style=flat
     :target: https://landscape.io/github/tomschr/dbassembly/develop

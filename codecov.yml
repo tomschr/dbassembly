@@ -1,5 +1,5 @@
 codecov:
-    branch: develop
+    branch: master,develop,feature/*
 
 coverage:
     range: "80...100"

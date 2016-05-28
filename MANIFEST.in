@@ -15,7 +15,8 @@ include CONTRIBUTING.rst
 include LICENSE
 include README.rst
 include dev-requirements.txt requirements.txt
-include tox.ini .travis.yml .travis-deploy.sh codecov.yml
+include tox.ini .travis-deploy.sh
+include *.yml
 
 recursive-include tests/data *
 recursive-include tests/relaxng *
