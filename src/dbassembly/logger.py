@@ -33,7 +33,7 @@ def setloglevel(verbose):
 
     :param int verbose: verbose level to set
     """
-    global log
+    global log  # pylint: disable=global-variable-not-assigned
     #: Dictionary: Log levels to map verbosity level
     #: to logging values
     LOGLEVELS = {None: logging.NOTSET,
