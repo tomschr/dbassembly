@@ -38,7 +38,7 @@ before_install:
 install:
   - pip install -U pip setuptools
   - pip install tox travis-sphinx>=1.4.1
-  - pip install codecov>=1.4.0 codeclimate-test-reporter
+  - pip install codecov>=1.4.0 codeclimate-test-reporter scrutinizer-ocular
   - virtualenv --version
   - easy_install --version
   - pip --version
@@ -69,4 +69,5 @@ after_success:
   - mv -v .coverage.* .coverage
   - codecov --token=$CODECOV_TOKEN
   - codeclimate-test-reporter --token $CODECLIMATE_REPO_TOKEN
+  - ocular
   - ./.travis-deploy.sh
