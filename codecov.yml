@@ -6,6 +6,9 @@ coverage:
 
 comment:
     branches:
+        - master
+        - develop
+        - feature/*
         - "!hotfix/*"
         - "!gh-pages"
     layout: "header, diff, changes"
