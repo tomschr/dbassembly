@@ -68,5 +68,6 @@ after_success:
   # - bash <(curl -s https://codecov.io/bash)
   - coverage debug data
   - codecov --token=$CODECOV_TOKEN
-  - codeclimate-test-reporter --token $CODECLIMATE_REPO_TOKEN
+  - codeclimate-test-reporter --token $CODECLIMATE_REPO_TOKEN \
+      --file = .coverage.$HOST.*
   - ./.travis-deploy.sh
