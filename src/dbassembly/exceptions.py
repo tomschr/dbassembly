@@ -37,7 +37,7 @@ class BaseAssemblyError(BaseException):
         return format(self.message)
 
 
-class NoAssemblyFileError(BaseAssemblyError):
+class NoAssemblyFileError(FileNotFoundError):
     pass
 
 

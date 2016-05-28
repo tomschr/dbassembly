@@ -48,9 +48,8 @@ from lxml.etree import XMLSyntaxError
 from . import __proc__
 from . import __version__
 from .app import App
-from .exceptions import MissingAttributeRessource
+from .exceptions import BaseAssemblyError
 from .exceptions import NoAssemblyFileError
-from .exceptions import NoStructure
 from .logger import log
 from .logger import setloglevel
 
@@ -131,19 +130,19 @@ def main_app(cli):
     # except KeyboardInterrupt:  # pragma: nocover
     #    logger.log.error('%s aborted by keyboard interrupt' % __proc__)
     #    return 1
-    except (MissingAttributeRessource, NoStructure) as error:
+    except (BaseAssemblyError, ) as error:
         log.error(error)
         # print(error, file=sys.stderr)
         return 10
-    except (OSError, ) as error:
-        log.error(error)
-        return 20
     except (NoAssemblyFileError, XMLSyntaxError) as error:
         # log.error(error)
         log.error("%s\n"
                   "Reason: Probably %r is not an assembly file."
                   "" % (error, basename(cli['<assembly>']))
                   )
+        return 20
+    except (OSError, ) as error:
+        log.error(error)
         return 30
     return 0
 
