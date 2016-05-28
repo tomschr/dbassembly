@@ -66,8 +66,10 @@ notifications:
 
 after_success:
   # - bash <(curl -s https://codecov.io/bash)
-  - mv .coverage.$HOST.* .coverage
-  - coverage debug data
+  - pwd
+  - ls -a
+  - mv -v .coverage.$HOST.* .coverage
+  # - coverage debug data
   - codecov --token=$CODECOV_TOKEN
   - codeclimate-test-reporter --token $CODECLIMATE_REPO_TOKEN
   - ./.travis-deploy.sh
