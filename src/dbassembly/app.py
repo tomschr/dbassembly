@@ -59,16 +59,16 @@ class App(object):
         self.assembly = self.args.get('<assembly>')
         # Option <output> can be None (=sys.stdout, the default),
         # a string, or a file-like object
-        if self.args.get('<output>') is None:
+        if self.args.get('--output') is None:
             self.output = sys.stdout
-        elif isinstance(self.args.get('<output>'), str):
-            out = self.args.get('<output>')
+        elif isinstance(self.args.get('--output'), str):
+            out = self.args.get('--output')
             if os.path.exists(out):
                 raise FileExistsError("File %r already exists" % out)
             self.output = open(out, 'w')
         else:
             # Assume it's a file-like object
-            self.output = self.args.get('<output>')
+            self.output = self.args.get('--output')
 
     def loadAssembly(self):
         """Load assembly file

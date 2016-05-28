@@ -66,7 +66,7 @@ def parsecli(argv=None):
 usage:
     dbassembly -h | --help
     dbassembly --version
-    dbassembly [-v]... [options] [--] <assembly> [<output>]
+    dbassembly [-v]... [options] [--] <assembly>
 
 Global options:
     --version
@@ -76,19 +76,21 @@ Global options:
 Input options:
     -b <basedir> --basedir=<basedir>
         define base directory of processing
-    -f=<format> --format=<format>
+    -f <format> --format=<format>
         specifies target output format.
         Multiple output formats separated by ';' may be specified.
         For example, "pdf;expert" means output format is "pdf" OR
         "expert".
-    -s=<struct_id> --struct=<struct_id>
+    -s <struct_id> --struct=<struct_id>
         specifies the xml:id of the structure to processed.
         (default: first found structure)
-    -p=<profile>, --profile=<profile>
+    -p <profile>, --profile=<profile>
         specifies a profiling attribut; <profile> has the syntax:
           attribute_name=attribute_value
         If you need more, separate them by semicolon, for example:
         -p "os=a;arch=x86"
+    -o <output>, --output=<output>
+        save "flat" DocBook document (default goes to stdout)
 
 Output options:
     --pretty-print
@@ -97,8 +99,6 @@ Output options:
 Arguments:
     <assembly>
         DocBook 5 assembly file
-    <output>
-        optional; save "flat" DocBook document (default goes to stdout)
     """
     cli = docopt(_doc,
                  help=True,
@@ -164,5 +164,5 @@ def main(argv=None):
         return 1
 
     setloglevel(cli['-v'])
-    log.debug(cli)
+    log.debug("CLI result: %s", cli)
     return main_app(cli)
