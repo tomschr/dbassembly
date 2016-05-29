@@ -36,12 +36,12 @@ def setloglevel(verbose):  # pragma: no cover
     global log  # pylint: disable=global-variable-not-assigned
     #: Dictionary: Log levels to map verbosity level
     #: to logging values
-    LOGLEVELS = {None: logging.NOTSET,
+    loglevels = {None: logging.NOTSET,
                  0: logging.NOTSET,
                  1: logging.INFO,
                  2: logging.DEBUG,
                  }
-    log.setLevel(LOGLEVELS.get(verbose, logging.DEBUG))
+    log.setLevel(loglevels.get(verbose, logging.DEBUG))
 
 
 # This is the default log level:

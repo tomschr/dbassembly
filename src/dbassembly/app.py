@@ -70,7 +70,7 @@ class App(object):
             # Assume it's a file-like object
             self.output = self.args.get('--output')
 
-    def loadAssembly(self):
+    def loadassembly(self):
         """Load assembly file
         """
         self.xml = loadassembly(self.assembly)
@@ -79,7 +79,7 @@ class App(object):
     def process(self):
         """Process the assembly file
         """
-        self.loadAssembly()
+        self.loadassembly()
         result = assembly(self.xml, self.output)
         self.output.write(etree.tostring(result,
                                          pretty_print=self.args.get('--pretty-print'),

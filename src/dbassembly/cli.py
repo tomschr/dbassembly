@@ -137,8 +137,8 @@ def main_app(cli):
     except (NoAssemblyFileError, XMLSyntaxError) as error:
         # log.error(error)
         log.error("%s\n"
-                  "Reason: Probably %r is not an assembly file."
-                  "" % (error, basename(cli['<assembly>']))
+                  "Reason: Probably %r is not an assembly file.",
+                  error, basename(cli['<assembly>'])
                   )
         return 20
     except (OSError, ) as error:
