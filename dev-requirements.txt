@@ -4,7 +4,6 @@
 -r requirements.txt
 pytest
 pytest-cov
-mock
 
 ## collection of helpers and mock objects:
 testfixtures
