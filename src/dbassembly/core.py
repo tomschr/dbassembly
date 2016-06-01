@@ -20,7 +20,6 @@
 
 from lxml.etree import QName as _QName
 
-
 NS = dict(db="http://docbook.org/ns/docbook",
           xlink="http://www.w3.org/1999/xlink",
           xi="http://www.w3.org/2001/XInclude",

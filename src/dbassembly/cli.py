@@ -41,17 +41,13 @@ Why does this file exist, and why not put this in __main__?
 import os
 import sys
 
-from docopt import DocoptExit
-from docopt import docopt
+from docopt import DocoptExit, docopt
 from lxml.etree import XMLSyntaxError
 
-from . import __proc__
-from . import __version__
+from . import __proc__, __version__
 from .app import App
-from .exceptions import BaseAssemblyError
-from .exceptions import NoAssemblyFileError
-from .logger import log
-from .logger import setloglevel
+from .exceptions import BaseAssemblyError, NoAssemblyFileError
+from .logger import log, setloglevel
 
 
 def parsecli(argv=None):

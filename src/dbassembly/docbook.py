@@ -18,20 +18,15 @@
 # To contact SUSE about this file by physical or electronic mail,
 # you may find current contact information at www.suse.com
 
-
 import os
-from urllib.parse import urljoin
-from urllib.parse import urlparse
+from urllib.parse import urljoin, urlparse
 
 from lxml import etree
 
-from .core import RESOURCE_TAG
-from .core import RESOURCES_TAG
-from .core import STRUCTURE_TAG
-from .core import xmlattr
-from .exceptions import MissingAttributeRessource
-from .exceptions import NoStructure
-from .exceptions import ResourceNotFoundError
+from .core import RESOURCE_TAG, RESOURCES_TAG, STRUCTURE_TAG, xmlattr
+from .exceptions import (MissingAttributeRessource,
+                         NoStructure,
+                         ResourceNotFoundError)
 from .logger import log
 
 
