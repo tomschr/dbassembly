@@ -76,6 +76,9 @@ def getresource(tree):
 
 def getstructure(tree):
     """Create a list of <structure>s
+
+    :param tree: ElementTree to process
+    :return: first <structure> element
     """
     structures = list(tree.iter(STRUCTURE_TAG.text))
     # TODO: Check if it is the correct structure element
