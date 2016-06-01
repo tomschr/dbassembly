@@ -20,12 +20,14 @@
 
 from lxml.etree import QName as _QName
 
-NS = dict(db="http://docbook.org/ns/docbook",
+NSMAP = dict(db="http://docbook.org/ns/docbook",
           xlink="http://www.w3.org/1999/xlink",
           xi="http://www.w3.org/2001/XInclude",
           xml="http://www.w3.org/XML/1998/namespace",
           trans="http://docbook.org/ns/transclude",
           local="http://www.w3.org/2001/XInclude/local-attributes",
+          # Namespace for dbassembly project itself:
+          da="https://github.com/tomschr/dbassembly",
           )
 
 
@@ -39,6 +41,19 @@ class QName(_QName):
         return "<%s: %r>" % (self.__class__.__name__, self.text)
 
 
+def da(name):
+    """Creates a DBAssembly name in Clark notation
+
+    >>> da("base")
+    '{https://github.com/tomschr/dbassembly}base'
+
+    :param str name: name of tag
+    :return: name string in Clark notation
+    :rtype: str
+    """
+    return str(QName(NSMAP['da'], name))
+
+
 def db(tag):
     """Creates a DocBook 5 tag name in Clark notation
 
@@ -49,7 +64,7 @@ def db(tag):
     :return: DocBook5 tag name string
     :rtype: str
     """
-    return str(QName(NS['db'], tag))
+    return str(QName(NSMAP['db'], tag))
 
 
 def xmlattr(attrib):
@@ -64,10 +79,16 @@ def xmlattr(attrib):
     :return: XML attribute name string
     :rtype: str
     """
-    return str(QName(NS['xml'], attrib))
+    return str(QName(NSMAP['xml'], attrib))
 
 
 ASSEMBLY_TAG = QName(db('assembly'))
+MODULE_TAG = QName(db('module'))
+OUTPUT_TAG = QName(db('output'))
 RESOURCES_TAG = QName(db('resources'))
 RESOURCE_TAG = QName(db('resource'))
 STRUCTURE_TAG = QName(db('structure'))
+
+#
+XMLID = xmlattr('id')
+XMLLANG = xmlattr('lang')

@@ -23,7 +23,15 @@ from urllib.parse import urljoin, urlparse
 
 from lxml import etree
 
-from .core import RESOURCE_TAG, RESOURCES_TAG, STRUCTURE_TAG, xmlattr
+from .core import (da,
+                   NSMAP,
+                   OUTPUT_TAG,
+                   RESOURCE_TAG,
+                   RESOURCES_TAG,
+                   STRUCTURE_TAG,
+                   XMLID,
+                   XMLLANG,
+                   )
 from .exceptions import (MissingAttributeRessource,
                          NoStructure,
                          ResourceNotFoundError)
@@ -40,7 +48,7 @@ def handleitem(item, position):
     :return: string content of href attribute or exception
     :throws: MissingAttributeRessource
     """
-    xmlid = item.attrib.get(xmlattr('id'))
+    xmlid = item.attrib.get(XMLID)
     href = item.attrib.get('href')
     error = 1 if href is None else 0
     error += 1 if xmlid is None else 0
@@ -147,12 +155,13 @@ def realizedoc(tree, structure, resource):
         include = getxmlbase(os.path.dirname(p.path), resource[resref])
         log.debug("Resource found: %r -> %r", resref, include)
 
-        lang = structure.attrib.get(xmlattr('lang'))
-        xmlid = structure.attrib.get(xmlattr('id'))
+        lang = structure.attrib.get(XMLLANG)
+        xmlid = structure.attrib.get(XMLID)
         if lang:
-            realized.attrib[xmlattr('lang')] = lang
+            realized.attrib[XMLLANG] = lang
         if xmlid:
-            realized.attrib[xmlattr('id')] = xmlid
+            realized.attrib[XMLID] = xmlid
+
 
         includedoc(realized, include)
 
