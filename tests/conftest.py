@@ -53,6 +53,25 @@ class raises(object): # pragma: no cover
         return newfunc
 
 
+
+def xmldump(tree, indent=2):
+    """Dump XML tree into hierarchical string
+
+    :param element: ElementTree or Element
+    :return: generator, yields strings
+    """
+    for i, elem in enumerate(tree.iter()):
+        indstr=indent*" "
+        if elem.text is None or (not elem.text.strip()):
+            text = 'None'
+        else:
+            text = repr(elem.text.strip())
+        yield i*indstr + "%s = %s" % (elem.tag, text)
+
+        for attr in sorted(elem.attrib):
+            yield (i+1)*indstr+"* %s = %r" % (attr, elem.attrib[attr])
+
+
 # ------------------------------------------------------
 # Fixtures
 #
