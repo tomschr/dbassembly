@@ -23,12 +23,7 @@ from urllib.parse import urljoin, urlparse
 
 from lxml import etree
 
-from .core import (RESOURCE_TAG,
-                   RESOURCES_TAG,
-                   STRUCTURE_TAG,
-                   XMLID,
-                   XMLLANG,
-                   )
+from .core import RESOURCE_TAG, RESOURCES_TAG, STRUCTURE_TAG, XMLID, XMLLANG
 from .exceptions import (MissingAttributeRessource,
                          NoStructure,
                          ResourceNotFoundError)
