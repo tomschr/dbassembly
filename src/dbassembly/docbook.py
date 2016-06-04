@@ -23,10 +23,7 @@ from urllib.parse import urljoin, urlparse
 
 from lxml import etree
 
-from .core import (da,
-                   NSMAP,
-                   OUTPUT_TAG,
-                   RESOURCE_TAG,
+from .core import (RESOURCE_TAG,
                    RESOURCES_TAG,
                    STRUCTURE_TAG,
                    XMLID,
@@ -161,7 +158,6 @@ def realizedoc(tree, structure, resource):
             realized.attrib[XMLLANG] = lang
         if xmlid:
             realized.attrib[XMLID] = xmlid
-
 
         includedoc(realized, include)
 
