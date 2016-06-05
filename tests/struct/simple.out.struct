@@ -1,0 +1,11 @@
+realized_doc = None
+  * {http://www.w3.org/XML/1998/namespace}id = 'result-topic1'
+  {http://docbook.org/ns/docbook}topic = None
+    * version = '5.1'
+    * {http://www.w3.org/XML/1998/namespace}id = 't1'
+    {http://docbook.org/ns/docbook}title = 'Title of Topic #1'
+      {http://docbook.org/ns/docbook}para = 'Paragraph'
+        {http://docbook.org/ns/docbook}phrase = '(that is, element'
+          * userlevel = 'advanced'
+          {http://docbook.org/ns/docbook}tag = 'para'
+            * class = 'element'

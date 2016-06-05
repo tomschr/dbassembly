@@ -18,8 +18,7 @@ include dev-requirements.txt requirements.txt
 include tox.ini .travis-deploy.sh
 include *.yml
 
-recursive-include tests/data *
-recursive-include tests/relaxng *
+recursive-include tests *
 
 recursive-exclude docs/_build *
 recursive-exclude src/dbassembly *.py,cover

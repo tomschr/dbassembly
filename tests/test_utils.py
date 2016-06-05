@@ -1,7 +1,6 @@
 
 from lxml import etree
 from lxml.etree import QName
-from dbassembly.core import xmlattr
 from dbassembly.utils import collect_ids
 
 
