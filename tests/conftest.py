@@ -53,7 +53,6 @@ class raises(object): # pragma: no cover
         return newfunc
 
 
-
 def xmldump(tree, indent=2):
     """Dump XML tree into hierarchical string
 
@@ -102,24 +101,83 @@ def assembly(tmpdir):
 # General
 #
 # http://pytest.org/latest/parametrize.html#basic-pytest-generate-tests-example
-def pytest_generate_tests(metafunc):
-    """Generate testcases for all *.case.xml files
+
+def casesdir():
+    """Fixture: returns the "cases" directory relative to
+       'conftest.py'
+
+       :return: directory pointing to 'cases'
+       :rtype: :py:class:'py.path.local'
     """
-    cases = local(__file__).dirpath() / "cases"
-    if 'xmltestcase' in metafunc.fixturenames:
-        testcases = cases.listdir('*.case.xml', sort=True)
+    return local(__file__).dirpath() / "cases"
 
-        # Create tuple of (original, outputfile, errorfile)
-        result = []
-        for case in testcases:
-            b = case.basename
-            out = b.replace('.case.xml', '.out.xml')
-            err = b.replace('.case.xml', '.err.xml')
-            out = case.new(basename=out)
-            err = case.new(basename=err)
-            result.append((case, out, err))
 
-        ids=[i.basename for i in testcases]
-        metafunc.parametrize("xmltestcase",
-                             result,
-                             ids=ids)
+def structdir():
+    """Fixture: returns the "cases" directory relative to
+       'conftest.py'
+
+       :return: directory pointing to 'cases'
+       :rtype: :py:class:'py.path.local'
+    """
+    return local(__file__).dirpath() / "struct"
+
+
+def get_test_cases(testcasesdir,
+                   casesxml='.case.xml',
+                   patternout='.out.xml',
+                   patternerr='.err.xml'):
+    """Generator: yield name tuple of (casexmlfile, outputfile, errorfile)
+
+       :param str casesxml: file extension of XML case file
+       :param str patternout: file extension of output file
+       :param str patternerr: file extension of error file
+    """
+    for case in testcasesdir:
+        b = case.basename
+        out = b.replace(casesxml, patternout)
+        err = b.replace(casesxml, patternerr)
+        out = case.new(basename=out)
+        err = case.new(basename=err)
+        yield (case, out, err)
+
+
+def xmltestcase(metafunc, cases):
+    """Compares .cases.xml files with .out.xml / .err.xml files
+
+    HINT: The out file has to be an *exact* output. Each spaces
+          is considered to be significant.
+    """
+    testcases = cases.listdir('*.case.xml', sort=True)
+
+    # Create tuple of (original, outputfile, errorfile)
+    result = get_test_cases(testcases)
+
+    ids=[i.basename for i in testcases]
+    metafunc.parametrize("xmltestcase", result, ids=ids)
+
+
+def xmlteststruct(metafunc, struct):
+    """Compares .cases.xml files with .struct.xml / .err.xml files
+    """
+    # cases = local(__file__).dirpath() / "cases"
+    testcases = struct.listdir('*.case.xml', sort=True)
+
+    # Create tuple of (original, outputfile, errorfile)
+    result = get_test_cases(testcases, patternout='.out.struct')
+
+    ids=[i.basename for i in testcases]
+    metafunc.parametrize("xmlteststruct", result, ids=ids)
+
+
+def pytest_generate_tests(metafunc):
+    """Generate testcases for all *.case.xml files.
+    """
+    funcdict = dict(xmltestcase=[xmltestcase, casesdir()],
+                    xmlteststruct=[xmlteststruct, structdir()],
+                    )
+
+    if not metafunc.fixturenames:
+        return
+    func, subdir = funcdict.get(metafunc.fixturenames[0], [None, None])
+    if func is not None:
+        func(metafunc, subdir)
