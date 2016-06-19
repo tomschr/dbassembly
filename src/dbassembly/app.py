@@ -28,13 +28,13 @@ from .docbook import assembly
 from .exceptions import NoAssemblyFileError
 
 
-def loadassembly(assembly):
+def loadassembly(assemblyfile):
     """Load assembly file and return tree
 
-    :param str assembly: assembly filename
+    :param str assemblyfile: assembly filename
     :return: ElementTree
     """
-    xml = etree.parse(assembly)
+    xml = etree.parse(assemblyfile)
     root = xml.getroot()
     if etree.QName(root) != ASSEMBLY_TAG:
         raise NoAssemblyFileError('Got %r element '

@@ -46,9 +46,7 @@ def handleitem(item, position):
     error += 1 if xmlid is None else 0
     if error > 0:
         name = 'href' if href is None else 'xml:id'
-        msg = 'Missing %s in resources[%i]/resource[%i]' % (name,
-                                                            position[0],
-                                                            position[1])
+        msg = 'Missing {} in resources[{}]/resource[{}]'.format(name, *position)
         try:
             description = item[0].text.strip()
             msg += ": %r" % description
