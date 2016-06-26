@@ -1,7 +1,10 @@
 
+from dbassembly.utils import collect_ids, isXMLSpace, isXMLChar
+
 from lxml import etree
 from lxml.etree import QName
-from dbassembly.utils import collect_ids
+
+import pytest
 
 
 def setup_module(module):
@@ -37,3 +40,36 @@ def test_collect_ids_hrefs():
     """Tests all href attributes"""
     assert {None, 'data/topic2.xml',
             'data/topic1.xml', 'data/topic3.xml'} == { result[i].attrib.get('href') for i in result }
+
+
+@pytest.mark.parametrize('char,result', [
+    (' ',  True),
+    ('\t', True),
+    ('\n', True),
+    ('\r', True),
+    ('a',  False),
+    ('\u20ac', False),
+])
+def test_isXMLSpace(char, result):
+    assert isXMLSpace(char) == result
+
+
+@pytest.mark.parametrize('char,result', [
+    ('\t', True),
+    ('\n', True),
+    ('\r', True),
+    # [#x20-#xD7FF]
+    (' ',       True),
+    ('\uA001',  True),
+    ('\uD7FF',  True),
+    # [#xE000-#xFFFD]
+    ('\uE000',  True),
+    ('\uEFFE',  True),
+    ('\uFFFD',  True),
+    # [#x10000-#x10FFFF]
+    ('\U00010000', True),
+    ('\U0008FFFF', True),
+    ('\U0010FFFF', True),
+])
+def test_isXMLChar(char, result):
+    assert isXMLChar(char) == result
