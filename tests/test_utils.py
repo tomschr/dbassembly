@@ -70,6 +70,14 @@ def test_is_xml_char(char, result):
     ('\U00010000', True),
     ('\U0008FFFF', True),
     ('\U0010FFFF', True),
+    # False
+    ('\v',         False),
+    ('\u0008',     False),
+    ('\uD800',     False),
+    ('\uDFFF',     False),
+    ('\uFFFE',     False),
+    ('\uFFFF',     False),
+#    ('\U00200000', False),
 ])
 def test_is_xml_char(char, result):
     assert is_xml_char(char) == result
