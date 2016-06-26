@@ -28,5 +28,3 @@ def iterxmlid(tree):
     for elem in tree.iter():
         if elem.attrib.get(XMLID):
             yield elem
-
-

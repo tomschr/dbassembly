@@ -33,7 +33,7 @@ def collect_ids(tree):
             }
 
 
-def isXMLSpace(char):
+def is_xml_space(char):
     """Checks if a character is a XML space
 
     :param char: single character
@@ -44,7 +44,7 @@ def isXMLSpace(char):
     return char in (' ', '\t', '\r', '\n')
 
 
-def isXMLChar(char):
+def is_xml_char(char):
     """Char ::= #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] |
                 [#x10000-#x10FFFF]
     """

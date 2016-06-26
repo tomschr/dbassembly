@@ -96,11 +96,11 @@ Arguments:
         DocBook 5 assembly file
     """
     return docopt(_doc,
-                 help=True,
-                 version='%s version %s' % (__proc__, __version__),
-                 # options_first=True,
-                 argv=argv,
-                 )  # pragma: nocover
+                  help=True,
+                  version='%s version %s' % (__proc__, __version__),
+                  # options_first=True,
+                  argv=argv,
+                  )  # pragma: nocover
 
 
 def basename(path):

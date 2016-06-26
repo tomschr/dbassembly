@@ -1,5 +1,5 @@
 
-from dbassembly.utils import collect_ids, isXMLSpace, isXMLChar
+from dbassembly.utils import collect_ids, is_xml_space, is_xml_char
 
 from lxml import etree
 from lxml.etree import QName
@@ -50,8 +50,8 @@ def test_collect_ids_hrefs():
     ('a',  False),
     ('\u20ac', False),
 ])
-def test_isXMLSpace(char, result):
-    assert isXMLSpace(char) == result
+def test_is_xml_char(char, result):
+    assert is_xml_char(char) == result
 
 
 @pytest.mark.parametrize('char,result', [
@@ -71,5 +71,5 @@ def test_isXMLSpace(char, result):
     ('\U0008FFFF', True),
     ('\U0010FFFF', True),
 ])
-def test_isXMLChar(char, result):
-    assert isXMLChar(char) == result
+def test_is_xml_char(char, result):
+    assert is_xml_char(char) == result
