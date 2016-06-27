@@ -31,3 +31,29 @@ def collect_ids(tree):
             for tag in tree.iter()
             if tag.attrib.get(xmlattr('id'))
             }
+
+
+def is_xml_space(char):
+    """Checks if a character is a XML space
+
+    :param char: single character
+    :return:  boolean; True if it is a space or False if it isn't
+    :rtype:  bool
+    """
+    return char in (' ', '\t', '\r', '\n')
+
+
+def is_xml_char(char):
+    """Char ::= #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] |
+                [#x10000-#x10FFFF]
+
+    :param char: single character
+    :return:  boolean; True if it is a XML character or
+              False if it isn't
+    :rtype:  bool
+    """
+    num = ord(char)
+    return ((char in ('\t', '\r', '\n')) or
+            (num >= 0x20 and num <= 0xD7ff) or
+            (num >= 0xE000 and num <= 0xFFFD) or
+            (num >= 0x10000 and num <= 0x10FFFF))
