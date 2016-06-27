@@ -139,7 +139,6 @@ def main_app(cli):
     except (OSError, ) as error:
         log.error(error)
         return 30
-    return 0
 
 
 def main(argv=None):
