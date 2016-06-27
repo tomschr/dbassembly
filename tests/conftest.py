@@ -74,28 +74,6 @@ def xmldump(tree, indent=2):
 #
 
 @pytest.fixture
-def assembly(tmpdir):
-    """Fixture: creates a file 'assembly.xml' in a temporary
-       directory with an empty DocBook5 root element '<assembly>'.
-
-       :return: Assembly file
-       :rtype: :py:class:'py.path.local'
-    """
-    content="""<assembly xmlns={dbns!r}>
-   <title>Test Assembly</title>
-  <resources>
-    <resource href="urn:x-pytest:foo" xml:id="topic1"/>
-  </resources>
-
-  <structure xml:id="result-topic1" resourceref="topic1"/>
-</assembly>
-    """
-    xmlfile = tmpdir.join('assembly.xml')
-    xmlfile.write(content.format(dbns=NSMAP['db']))
-    return xmlfile
-
-
-@pytest.fixture
 def docoptdict():
     """Fixture: creates a faked dictionary object from docopt.
 
