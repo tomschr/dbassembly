@@ -22,10 +22,8 @@ from functools import wraps
 import pytest
 from py.path import local
 
-try:
-    from dbassembly.core import NS
-except ImportError:
-    pass
+from dbassembly.core import NSMAP
+from dbassembly.cli import parsecli
 
 
 class raises(object): # pragma: no cover
@@ -93,9 +91,18 @@ def assembly(tmpdir):
 </assembly>
     """
     xmlfile = tmpdir.join('assembly.xml')
-    xmlfile.write(content.format(dbns=NS['db']))
+    xmlfile.write(content.format(dbns=NSMAP['db']))
     return xmlfile
 
+
+@pytest.fixture
+def docoptdict():
+    """Fixture: creates a faked dictionary object from docopt.
+
+       :return: dictionary
+       :rtype: dict
+    """
+    return parsecli(['foo.xml'])
 
 # ------------------------------------------------------
 # General
