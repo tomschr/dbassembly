@@ -41,20 +41,23 @@ def test_collect_ids_hrefs():
     assert {None, 'data/topic2.xml',
             'data/topic1.xml', 'data/topic3.xml'} == { result[i].attrib.get('href') for i in result }
 
-
-@pytest.mark.parametrize('char,result', [
+is_xml_space_data = [
     (' ',  True),
     ('\t', True),
     ('\n', True),
     ('\r', True),
     ('a',  False),
     ('\u20ac', False),
-])
-def test_is_xml_char(char, result):
-    assert is_xml_char(char) == result
+]
+@pytest.mark.parametrize('char,result',
+                         is_xml_space_data,
+                         ids=[repr(i) for i in is_xml_space_data]
+)
+def test_is_xml_space(char, result):
+    assert is_xml_space(char) == result
 
 
-@pytest.mark.parametrize('char,result', [
+is_xml_char_data = [
     ('\t', True),
     ('\n', True),
     ('\r', True),
@@ -78,6 +81,9 @@ def test_is_xml_char(char, result):
     ('\uFFFE',     False),
     ('\uFFFF',     False),
 #    ('\U00200000', False),
-])
+]
+@pytest.mark.parametrize('char,result',
+                         is_xml_char_data,
+                         ids=[repr(i) for i in is_xml_char_data])
 def test_is_xml_char(char, result):
     assert is_xml_char(char) == result
