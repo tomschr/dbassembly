@@ -9,7 +9,7 @@ from testfixtures import LogCapture
 
 from dbassembly.app import loadassembly
 from dbassembly.cli import main_app
-from dbassembly.docbook import assembly
+from dbassembly.assembly import assembly
 from dbassembly.exceptions import BaseAssemblyError
 from dbassembly.logger import log
 

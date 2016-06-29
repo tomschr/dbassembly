@@ -24,7 +24,7 @@ import sys
 from lxml import etree
 
 from .core import ASSEMBLY_TAG
-from .docbook import assembly
+from .assembly import assembly
 from .exceptions import NoAssemblyFileError
 
 
