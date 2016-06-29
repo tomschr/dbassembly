@@ -19,7 +19,7 @@
 # you may find current contact information at www.suse.com
 
 
-class BaseAssemblyError(BaseException):
+class BaseAssemblyError(Exception):
     """
     Base class to handle all known exceptions.
 
@@ -30,24 +30,34 @@ class BaseAssemblyError(BaseException):
     * :attr:`message`
         Exception message text
     """
-    def __init__(self, message):
+    def __init__(self, message, *args, **kwargs):
         self.message = message
+        super().__init__(args, kwargs)
 
     def __str__(self):
         return format(self.message)
 
 
 class NoAssemblyFileError(FileNotFoundError):
+    """Error raised when there is no assembly file found"""
     pass
 
 
 class MissingAttributeRessource(BaseAssemblyError):
+    """Error raised when an expected attribute is not available"""
     pass
 
 
 class NoStructure(BaseAssemblyError):
+    """Error raised when no <structure> element found inside <assembly>"""
     pass
 
 
 class ResourceNotFoundError(BaseAssemblyError):
+    """Error raised when the referenced resource was not found"""
+    pass
+
+
+class NoResultDocumentError(BaseAssemblyError):
+    """Error raised when no result document is created"""
     pass

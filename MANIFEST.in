@@ -20,7 +20,7 @@ include *.yml
 
 recursive-include tests *
 
-recursive-exclude docs/_build *
+recursive-exclude docs/build *
 recursive-exclude src/dbassembly *.py,cover
 
 global-exclude *.py[cod] __pycache__ *.so *.dylib *.kate-swp *.swp *~

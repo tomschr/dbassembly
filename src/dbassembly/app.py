@@ -23,23 +23,7 @@ import sys
 
 from lxml import etree
 
-from .core import ASSEMBLY_TAG
-from .assembly import assembly
-from .exceptions import NoAssemblyFileError
-
-
-def loadassembly(assemblyfile):
-    """Load assembly file and return tree
-
-    :param str assemblyfile: assembly filename
-    :return: ElementTree
-    """
-    xml = etree.parse(assemblyfile)
-    root = xml.getroot()
-    if etree.QName(root) != ASSEMBLY_TAG:
-        raise NoAssemblyFileError('Got %r element '
-                                  'instead of <assembly>.' % root.tag)
-    return xml
+from .assembly import assembly, loadassembly
 
 
 class App(object):
@@ -80,7 +64,8 @@ class App(object):
         """
         self.loadassembly()
         result = assembly(self.xml, self.output)
-        self.output.write(etree.tostring(result,
+        # We need [0] here to remove the root element 'realized_doc'
+        self.output.write(etree.tostring(result[0],
                                          pretty_print=self.args.get('--pretty-print'),
                                          # xml_declaration=True,
                                          encoding='unicode',

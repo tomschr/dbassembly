@@ -23,11 +23,35 @@ from urllib.parse import urljoin, urlparse
 
 from lxml import etree
 
-from .core import RESOURCE_TAG, RESOURCES_TAG, STRUCTURE_TAG, XMLID, XMLLANG
-from .exceptions import (MissingAttributeRessource,
-                         NoStructure,
-                         ResourceNotFoundError)
-from .logger import log
+from ..core import (ASSEMBLY_TAG,
+                    RESOURCE_TAG,
+                    RESOURCES_TAG,
+                    STRUCTURE_TAG,
+                    XMLID,
+                    XMLLANG)
+from ..exceptions import (MissingAttributeRessource,
+                          NoAssemblyFileError,
+                          NoResultDocumentError,
+                          NoStructure,
+                          ResourceNotFoundError)
+from ..logger import log
+
+
+def loadassembly(assemblyfile):
+    """Load assembly file and return tree
+
+    :param str assemblyfile: assembly filename
+    :return: ElementTree
+    """
+    parser = etree.XMLParser(encoding="utf-8",
+                             ns_clean=True,
+                             )
+    xml = etree.parse(assemblyfile, parser)
+    root = xml.getroot()
+    if etree.QName(root) != ASSEMBLY_TAG:
+        raise NoAssemblyFileError('Got %r element '
+                                  'instead of <assembly>.' % root.tag)
+    return xml
 
 
 def handleitem(item, position):
@@ -72,17 +96,16 @@ def getresource(tree):
     return resource
 
 
-def getstructure(tree):
+def findstructure(tree):
     """Create a list of <structure>s
 
     :param tree: ElementTree to process
     :return: first <structure> element
     """
-    structures = list(tree.iter(STRUCTURE_TAG.text))
-    # TODO: Check if it is the correct structure element
-    if not structures:
+    struct = tree.find(STRUCTURE_TAG)
+    if struct is None:
         raise NoStructure('No structure element found in assembly')
-    return structures[0]
+    return struct
 
 
 def getxmlbase(base, path):
@@ -108,6 +131,10 @@ def getxmlbase(base, path):
     '/usr/bin/ls'
     >>> getxmlbase("bin", "/tmp/foo")
     '/tmp/foo'
+    >>> getxmlbase(None, "/tmp/foo")
+    '/tmp/foo'
+    >>> getxmlbase(".", None)
+    '/usr/'
     """
     b = urlparse(base)
     p = urlparse(path)
@@ -157,6 +184,13 @@ def realizedoc(tree, structure, resource):
 
         includedoc(realized, include)
 
+    # Does <realized_doc> really contain child elements? If not,
+    # something went wrong, so raise an exception.
+    try:
+        realized[0]
+    except IndexError:
+        raise NoResultDocumentError("No result document created")
+
     return realized
 
 
@@ -171,7 +205,7 @@ def assembly(tree, base_url=None):
     resource = getresource(tree)
 
     # step 2: find all structure elements
-    structure = getstructure(tree)
+    structure = findstructure(tree)
 
     # step 3: target formats
 
