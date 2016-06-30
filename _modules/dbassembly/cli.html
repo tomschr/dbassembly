@@ -1,0 +1,358 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>dbassembly.cli &mdash; dbassembly 0.1.5 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="dbassembly 0.1.5 documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> dbassembly
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">dbassembly Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">dbassembly</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+    <li>dbassembly.cli</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for dbassembly.cli</h1><div class="highlight"><pre>
+<span></span><span class="c1">#</span>
+<span class="c1"># Copyright (c) 2016 SUSE Linux GmbH.  All rights reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># This file is part of dbassembly.</span>
+<span class="c1">#</span>
+<span class="c1"># This program is free software; you can redistribute it and/or</span>
+<span class="c1"># modify it under the terms of version 3 of the GNU General Public License as</span>
+<span class="c1"># published by the Free Software Foundation.</span>
+<span class="c1">#</span>
+<span class="c1"># This program is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with this program; if not, contact SUSE LLC.</span>
+<span class="c1">#</span>
+<span class="c1"># To contact SUSE about this file by physical or electronic mail,</span>
+<span class="c1"># you may find current contact information at www.suse.com</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">dbassembly.cli Module</span>
+<span class="sd">=====================</span>
+
+<span class="sd">Module that contains the command line app.</span>
+
+<span class="sd">Why does this file exist, and why not put this in __main__?</span>
+
+<span class="sd">  You might be tempted to import things from :func:`__main__` later, but that</span>
+<span class="sd">  will cause problems: the code will get executed twice:</span>
+
+<span class="sd">  * When you run :command:`python -mdbassembly` Python will execute</span>
+<span class="sd">    :file:`__main__.py` as a script. That means there won&#39;t be any</span>
+<span class="sd">    :func:`dbassembly.__main__` in :py:class:`sys.modules`.</span>
+<span class="sd">  * When you import __main__ it will get executed again (as a module) because</span>
+<span class="sd">    there&#39;s no :func:`dbassembly.__main__` in :py:class:`sys.modules`.</span>
+
+<span class="sd">  Also see (1) from http://click.pocoo.org/5/setuptools/#setuptools-integration</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">docopt</span> <span class="kn">import</span> <span class="n">DocoptExit</span><span class="p">,</span> <span class="n">docopt</span>
+<span class="kn">from</span> <span class="nn">lxml.etree</span> <span class="kn">import</span> <span class="n">XMLSyntaxError</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">__proc__</span><span class="p">,</span> <span class="n">__version__</span>
+<span class="kn">from</span> <span class="nn">.app</span> <span class="kn">import</span> <span class="n">App</span>
+<span class="kn">from</span> <span class="nn">.exceptions</span> <span class="kn">import</span> <span class="n">BaseAssemblyError</span><span class="p">,</span> <span class="n">NoAssemblyFileError</span>
+<span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">log</span><span class="p">,</span> <span class="n">setloglevel</span>
+
+
+<div class="viewcode-block" id="parsecli"><a class="viewcode-back" href="../../reference/dbassembly.html#dbassembly.cli.parsecli">[docs]</a><span class="k">def</span> <span class="nf">parsecli</span><span class="p">(</span><span class="n">argv</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Parse command line arguments with docopt</span>
+
+<span class="sd">    :param list argv: Arguments to parse or None (=use `sys.argv`)</span>
+<span class="sd">    :return: parsed arguments</span>
+<span class="sd">    :rtype: :py:class:`docopt.Dict`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_doc</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">usage:</span>
+<span class="s2">    dbassembly -h | --help</span>
+<span class="s2">    dbassembly --version</span>
+<span class="s2">    dbassembly [-v]... [options] [--] &lt;assembly&gt;</span>
+
+<span class="s2">Global options:</span>
+<span class="s2">    --version</span>
+<span class="s2">        show program version</span>
+<span class="s2">    -v  raise verbosity</span>
+
+<span class="s2">Input options:</span>
+<span class="s2">    -b &lt;basedir&gt; --basedir=&lt;basedir&gt;</span>
+<span class="s2">        define base directory of processing</span>
+<span class="s2">    -f &lt;format&gt; --format=&lt;format&gt;</span>
+<span class="s2">        specifies target output format.</span>
+<span class="s2">        Multiple output formats separated by &#39;;&#39; may be specified.</span>
+<span class="s2">        For example, &quot;pdf;expert&quot; means output format is &quot;pdf&quot; OR</span>
+<span class="s2">        &quot;expert&quot;.</span>
+<span class="s2">    -s &lt;struct_id&gt; --struct=&lt;struct_id&gt;</span>
+<span class="s2">        specifies the xml:id of the structure to processed.</span>
+<span class="s2">        (default: first found structure)</span>
+<span class="s2">    -p &lt;profile&gt;, --profile=&lt;profile&gt;</span>
+<span class="s2">        specifies a profiling attribut; &lt;profile&gt; has the syntax:</span>
+<span class="s2">          attribute_name=attribute_value</span>
+<span class="s2">        If you need more, separate them by semicolon, for example:</span>
+<span class="s2">        -p &quot;os=a;arch=x86&quot;</span>
+<span class="s2">    -o &lt;output&gt;, --output=&lt;output&gt;</span>
+<span class="s2">        save &quot;flat&quot; DocBook document (default goes to stdout)</span>
+
+<span class="s2">Output options:</span>
+<span class="s2">    --pretty-print</span>
+<span class="s2">        pretty-print realized document</span>
+
+<span class="s2">Arguments:</span>
+<span class="s2">    &lt;assembly&gt;</span>
+<span class="s2">        DocBook 5 assembly file</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">docopt</span><span class="p">(</span><span class="n">_doc</span><span class="p">,</span>
+                  <span class="n">help</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                  <span class="n">version</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> version </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">__proc__</span><span class="p">,</span> <span class="n">__version__</span><span class="p">),</span>
+                  <span class="c1"># options_first=True,</span>
+                  <span class="n">argv</span><span class="o">=</span><span class="n">argv</span><span class="p">,</span>
+                  <span class="p">)</span>  <span class="c1"># pragma: nocover</span></div>
+
+
+<div class="viewcode-block" id="basename"><a class="viewcode-back" href="../../reference/dbassembly.html#dbassembly.cli.basename">[docs]</a><span class="k">def</span> <span class="nf">basename</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns basename of current path</span>
+
+<span class="sd">    :param str path: path</span>
+<span class="sd">    :return: relative path</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="main_app"><a class="viewcode-back" href="../../reference/dbassembly.html#dbassembly.cli.main_app">[docs]</a><span class="k">def</span> <span class="nf">main_app</span><span class="p">(</span><span class="n">cli</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Main entry point for testing purpose</span>
+
+<span class="sd">    :param dict cli: dictionary from docopt parsing</span>
+<span class="sd">    :return: success code (0 =&gt; ok; !=0 =&gt; error)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">app</span> <span class="o">=</span> <span class="n">App</span><span class="p">(</span><span class="n">cli</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">app</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+    <span class="c1"># except KeyboardInterrupt:  # pragma: nocover</span>
+    <span class="c1">#    logger.log.error(&#39;%s aborted by keyboard interrupt&#39; % __proc__)</span>
+    <span class="c1">#    return 1</span>
+    <span class="k">except</span> <span class="p">(</span><span class="n">BaseAssemblyError</span><span class="p">,</span> <span class="p">)</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+        <span class="c1"># print(error, file=sys.stderr)</span>
+        <span class="k">return</span> <span class="mi">10</span>
+    <span class="k">except</span> <span class="p">(</span><span class="n">NoAssemblyFileError</span><span class="p">,</span> <span class="n">XMLSyntaxError</span><span class="p">)</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+        <span class="c1"># log.error(error)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span>
+                  <span class="s2">&quot;Reason: Probably </span><span class="si">%r</span><span class="s2"> is not an assembly file.&quot;</span><span class="p">,</span>
+                  <span class="n">error</span><span class="p">,</span> <span class="n">basename</span><span class="p">(</span><span class="n">cli</span><span class="p">[</span><span class="s1">&#39;&lt;assembly&gt;&#39;</span><span class="p">])</span>
+                  <span class="p">)</span>
+        <span class="k">return</span> <span class="mi">20</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="p">)</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">30</span></div>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../reference/dbassembly.html#dbassembly.cli.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">argv</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Main entry point</span>
+
+<span class="sd">    :param list argv: Arguments to parse or None (=use `sys.argv`)</span>
+<span class="sd">    :return: result from :func:`App.process`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># argv = argv if argv else sys.argv</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">cli</span> <span class="o">=</span> <span class="n">parsecli</span><span class="p">(</span><span class="n">argv</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">DocoptExit</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+        <span class="c1"># exception thrown by docopt, results in usage message</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">1</span>
+
+    <span class="n">setloglevel</span><span class="p">(</span><span class="n">cli</span><span class="p">[</span><span class="s1">&#39;-v&#39;</span><span class="p">])</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;CLI result: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">cli</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">main_app</span><span class="p">(</span><span class="n">cli</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Thomas Schraitle.
+      Last updated on Jun 30, 2016.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.1.5',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
