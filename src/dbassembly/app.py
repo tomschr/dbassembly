@@ -23,7 +23,8 @@ import sys
 
 from lxml import etree
 
-from .assembly import assembly, loadassembly
+from .assembly import assembly
+from .assembly.resource import loadassembly
 
 
 class App(object):

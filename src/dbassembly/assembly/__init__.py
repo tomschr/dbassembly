@@ -19,81 +19,17 @@
 # you may find current contact information at www.suse.com
 
 import os
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urlparse
 
 from lxml import etree
 
-from ..core import (ASSEMBLY_TAG,
-                    RESOURCE_TAG,
-                    RESOURCES_TAG,
-                    STRUCTURE_TAG,
-                    XMLID,
-                    XMLLANG)
-from ..exceptions import (MissingAttributeRessource,
-                          NoAssemblyFileError,
-                          NoResultDocumentError,
+from ..core import STRUCTURE_TAG, XMLID, XMLLANG
+from ..exceptions import (NoResultDocumentError,
                           NoStructure,
                           ResourceNotFoundError)
 from ..logger import log
-
-
-def loadassembly(assemblyfile):
-    """Load assembly file and return tree
-
-    :param str assemblyfile: assembly filename
-    :return: ElementTree
-    """
-    parser = etree.XMLParser(encoding="utf-8",
-                             ns_clean=True,
-                             )
-    xml = etree.parse(assemblyfile, parser)
-    root = xml.getroot()
-    if etree.QName(root) != ASSEMBLY_TAG:
-        raise NoAssemblyFileError('Got %r element '
-                                  'instead of <assembly>.' % root.tag)
-    return xml
-
-
-def handleitem(item, position):
-    """Handle item and return content of href attribute
-
-    :param item: Element object
-    :param tuple position: current position of current
-        <resources> element and <resource> element
-        (starting both from 1)
-    :return: string content of href attribute or exception
-    :throws: MissingAttributeRessource
-    """
-    xmlid = item.attrib.get(XMLID)
-    href = item.attrib.get('href')
-    error = 1 if href is None else 0
-    error += 1 if xmlid is None else 0
-    if error > 0:
-        name = 'href' if href is None else 'xml:id'
-        msg = 'Missing {} in resources[{}]/resource[{}]'.format(name, *position)
-        try:
-            description = item[0].text.strip()
-            msg += ": %r" % description
-        except IndexError:
-            pass
-
-        raise MissingAttributeRessource(msg)
-    return xmlid, href
-
-
-def getresource(tree):
-    """Creates mapping between xml:id -> href
-
-    :param tree: ElementTree to process
-    :return: dictionary
-    """
-    resource = {}
-    for i, res in enumerate(tree.iter(RESOURCES_TAG.text), 1):
-        for j, item in enumerate(res.iter(RESOURCE_TAG.text), 1):
-            xmlid, href = handleitem(item, (i, j))
-            resource[xmlid] = href
-    log.debug("Found resources: %r", resource)
-    return resource
+from .resource import getresource, includedoc
+from .utils import getxmlbase
 
 
 def findstructure(tree):
@@ -106,56 +42,6 @@ def findstructure(tree):
     if struct is None:
         raise NoStructure('No structure element found in assembly')
     return struct
-
-
-def getxmlbase(base, path):
-    """Determine base path; if path is absolute, return
-       this absolute path instead of base from tree
-
-    :param str base: base URL from ElementTree
-    :param str path: relative source
-    :return: string of concatenated base and relative part
-
-    >>> getxmlbase("http://www.example.org/", "foo/path")
-    'http://www.example.org/foo/path'
-    >>> getxmlbase("http://www.example.org/", "file:foo/path")
-    'http://www.example.org/foo/path'
-    >>> import os; os.chdir("/usr")
-    >>> getxmlbase("", "bin/ls")
-    '/usr/bin/ls'
-    >>> getxmlbase("bin", "ls")
-    '/usr/bin/ls'
-    >>> getxmlbase("bin/", "ls")
-    '/usr/bin/ls'
-    >>> getxmlbase("bin/", "./ls")
-    '/usr/bin/ls'
-    >>> getxmlbase("bin", "/tmp/foo")
-    '/tmp/foo'
-    >>> getxmlbase(None, "/tmp/foo")
-    '/tmp/foo'
-    >>> getxmlbase(".", None)
-    '/usr/'
-    """
-    b = urlparse(base)
-    p = urlparse(path)
-    # Check if we have a local path:
-    if b.scheme == '':
-        # "/" at the end needed for urljoin
-        base = os.path.abspath(base) + "/"
-    if p.scheme == 'file':
-        path = p.path
-
-    return urljoin(base, path)
-
-
-def includedoc(realized, include):
-    """Append include document into realized structure
-
-    :param realized: Element
-    :param str include: path
-    """
-    doc = etree.parse(include)
-    realized.append(doc.getroot())
 
 
 def realizedoc(tree, structure, resource):
