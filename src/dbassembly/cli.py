@@ -38,16 +38,21 @@ Why does this file exist, and why not put this in __main__?
   Also see (1) from http://click.pocoo.org/5/setuptools/#setuptools-integration
 """
 
+import logging
 import os
 import sys
+from logging.config import dictConfig
 
 from docopt import DocoptExit, docopt
 from lxml.etree import XMLSyntaxError
 
 from . import __proc__, __version__
 from .app import App
+from .core import DEFAULT_LOGGING_DICT, LOGLEVELS
 from .exceptions import BaseAssemblyError, NoAssemblyFileError
-from .logger import log, setloglevel
+
+#: Use __package__, not __name__ here to set overall logging level:
+log = logging.getLogger(__package__)
 
 
 def parsecli(argv=None):
@@ -147,8 +152,6 @@ def main(argv=None):
     :param list argv: Arguments to parse or None (=use `sys.argv`)
     :return: result from :func:`App.process`
     """
-    # argv = argv if argv else sys.argv
-
     try:
         cli = parsecli(argv)
     except DocoptExit as error:
@@ -156,6 +159,8 @@ def main(argv=None):
         print(error, file=sys.stderr)
         return 1
 
-    setloglevel(cli['-v'])
+    dictConfig(DEFAULT_LOGGING_DICT)
+    log.setLevel(LOGLEVELS.get(cli['-v'], logging.DEBUG))
+
     log.debug("CLI result: %s", cli)
     return main_app(cli)

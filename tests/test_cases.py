@@ -2,6 +2,7 @@
 #
 from io import StringIO
 from unittest.mock import patch
+import logging
 
 from lxml import etree
 from py.path import local
@@ -11,9 +12,10 @@ from dbassembly.app import loadassembly
 from dbassembly.cli import main_app
 from dbassembly.assembly import assembly
 from dbassembly.exceptions import BaseAssemblyError
-from dbassembly.logger import log
 
 from .conftest import xmldump
+
+log = logging.getLogger('dbassembly')
 
 
 def test_cases(xmltestcase):

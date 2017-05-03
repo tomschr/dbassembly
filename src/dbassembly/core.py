@@ -18,12 +18,16 @@
 # To contact SUSE about this file by physical or electronic mail,
 # you may find current contact information at www.suse.com
 
+import logging
 from itertools import chain
+
 from lxml.etree import QName as _QName
 
 __all__ = ['ATTRS_NOT_COPIED',
            'ASSEMBLY_TAG',
+           'DEFAULT_LOGGING_DICT',
            'EFFECTIVITY_ATTRIBS',
+           'LOGLEVELS',
            'MODULE_OR_STRUCT_ATTRIBS',
            'MODULE_TAG',
            'NSMAP',
@@ -155,3 +159,53 @@ ATTRS_NOT_COPIED = tuple(name for name in chain(EFFECTIVITY_ATTRIBS,
                                                 MODULE_OR_STRUCT_ATTRIBS,
                                                 ('outputformat',)))
 del chain
+
+
+LOGLEVELS = {None: logging.NOTSET,
+             0: logging.WARNING,
+             1: logging.INFO,
+             2: logging.DEBUG,
+             }
+
+#: Default logging dict for :class:`logging.config.dictConfig`:
+DEFAULT_LOGGING_DICT = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'standard': {
+            'format': '[%(levelname)s] %(name)s: %(message)s'
+        },
+    },
+    'handlers': {
+        'default': {
+            'level': 'NOTSET',
+            'formatter': 'standard',
+            'class': 'logging.StreamHandler',
+            # 'stream': 'ext://sys.stderr',
+        },
+    },
+    'loggers': {
+        'dbassembly': {
+            'handlers': ['default'],
+            'level': 'INFO',
+            'propagate': True
+        }
+    }
+}
+
+
+"""
+handlers:
+  console:
+    class : logging.StreamHandler
+    formatter: brief
+    level   : INFO
+    filters: [allow_foo]
+    stream  : ext://sys.stdout
+  file:
+    class : logging.handlers.RotatingFileHandler
+    formatter: precise
+    filename: logconfig.log
+    maxBytes: 1024
+    backupCount: 3
+"""
