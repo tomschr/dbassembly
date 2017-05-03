@@ -38,7 +38,6 @@ __all__ = ['ATTRS_NOT_COPIED',
            'QName', 'da', 'db', 'xmlattr']
 
 # -------- Namespace mappings
-
 NSMAP = dict(db="http://docbook.org/ns/docbook",
              # Namespace for dbassembly project ("da") itself:
              da="https://github.com/tomschr/dbassembly",
@@ -55,14 +54,25 @@ NSMAP = dict(db="http://docbook.org/ns/docbook",
              )
 
 
-class QName(_QName):
-    __doc__ = _QName.__doc__
+# For compatibility reasons, older versions of lxml do not
+# have/know __str__, so this is something that wouldn't be
+# possible:
+# >>> str(QName('{urn:xxx}transforms'))
+# '{urn:xxx}transforms'
+#
+if not hasattr(_QName, '__str__'):
+    class QName(_QName):
+        __doc__ = _QName.__doc__
 
-    def __str__(self):
-        return self.text
+        def __str__(self):
+            return self.text
 
-    def __repr__(self):
-        return "<%s: %r>" % (self.__class__.__name__, self.text)
+        def __repr__(self):
+            return "<%s: %r>" % (self.__class__.__name__, self.text)
+else:
+    # for lxml versions that provide __str__, use original name
+    QName = _QName
+    del _QName
 
 
 # -------- Functions
