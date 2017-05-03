@@ -72,7 +72,7 @@ notifications:
     on_failure: always
 
 after_success:
-  # - bash <(curl -s https://codecov.io/bash)
+  - bash <(curl -s https://codecov.io/bash)
   - mv -v .coverage.* .coverage
   - codecov --token=$CODECOV_TOKEN
   - codeclimate-test-reporter --token $CODECLIMATE_REPO_TOKEN
