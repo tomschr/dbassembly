@@ -1,8 +1,7 @@
 graft docs
-graft examples
 graft src
-graft ci
 graft tests
+graft tests/struct/data
 
 include .bumpversion.cfg
 include .coveragerc
@@ -19,6 +18,7 @@ include tox.ini .travis-deploy.sh
 include *.yml
 
 recursive-include tests *
+recursive-include tests/struct/data *.xml
 
 recursive-exclude docs/build *
 recursive-exclude src/dbassembly *.py,cover
