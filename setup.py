@@ -35,6 +35,24 @@ def read(*names, **kwargs):
     ).read()
 
 
+def requires(filename):
+    """Return a list of all requirements from a Pip requirement file
+       (doesn't follow files which are referred by "-r")
+
+    :param filename: the Pip requirement file (usually 'requirements.txt')
+    :return: list of modules
+    :rtype: list
+    """
+    modules = []
+    with open(filename, 'r') as pipreq:
+        for line in pipreq:
+            line = line.strip()
+            if line.startswith('#') or line.startswith('-r') or not line:
+                continue
+            modules.append(line)
+    return modules
+
+
 setup(
     name='dbassembly',
     version='0.1.5',
@@ -62,9 +80,9 @@ setup(
         'Operating System :: Microsoft :: Windows',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: Implementation :: CPython',
         # 'Programming Language :: Python :: Implementation :: PyPy',
         # uncomment if you test on these interpreters:
@@ -78,15 +96,11 @@ setup(
     keywords=[
         'docbook', 'topic', 'assembly', 'assemblies',
     ],
-    install_requires=[
-        # eg: 'aspectlib==1.1.1', 'six>=1.7',
-        'docopt', 'lxml', 'py',
-    ],
-    extras_require={
-        # eg:
-        #   'rst': ['docutils>=0.11'],
-        #   ':python_version=="2.6"': ['argparse'],
-    },
+    install_requires=requires('requirements.txt'),
+    #
+    setup_requires=['pytest-runner'],
+    tests_require=requires('dev-requirements.txt'),
+    #
     entry_points={
         'console_scripts': ['dbassembly=dbassembly.cli:main'],
     },
