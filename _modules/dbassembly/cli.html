@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -30,6 +32,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="dbassembly 0.1.5 documentation" href="../../index.html"/>
         <link rel="up" title="Module code" href="../index.html"/> 
 
@@ -40,6 +45,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -80,7 +86,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../readme.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">dbassembly Usage</a></li>
@@ -100,8 +109,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../index.html">dbassembly</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">dbassembly</a>
+        
       </nav>
 
 
@@ -114,19 +125,36 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../index.html">Module code</a> &raquo;</li>
-      
-    <li>dbassembly.cli</li>
+        
+      <li>dbassembly.cli</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -176,16 +204,16 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
-<span class="kn">from</span> <span class="nn">docopt</span> <span class="kn">import</span> <span class="n">DocoptExit</span><span class="p">,</span> <span class="n">docopt</span>
-<span class="kn">from</span> <span class="nn">lxml.etree</span> <span class="kn">import</span> <span class="n">XMLSyntaxError</span>
+<span class="kn">from</span> <span class="nn">docopt</span> <span class="k">import</span> <span class="n">DocoptExit</span><span class="p">,</span> <span class="n">docopt</span>
+<span class="kn">from</span> <span class="nn">lxml.etree</span> <span class="k">import</span> <span class="n">XMLSyntaxError</span>
 
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">__proc__</span><span class="p">,</span> <span class="n">__version__</span>
-<span class="kn">from</span> <span class="nn">.app</span> <span class="kn">import</span> <span class="n">App</span>
-<span class="kn">from</span> <span class="nn">.exceptions</span> <span class="kn">import</span> <span class="n">BaseAssemblyError</span><span class="p">,</span> <span class="n">NoAssemblyFileError</span>
-<span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">log</span><span class="p">,</span> <span class="n">setloglevel</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">__proc__</span><span class="p">,</span> <span class="n">__version__</span>
+<span class="kn">from</span> <span class="nn">.app</span> <span class="k">import</span> <span class="n">App</span>
+<span class="kn">from</span> <span class="nn">.exceptions</span> <span class="k">import</span> <span class="n">BaseAssemblyError</span><span class="p">,</span> <span class="n">NoAssemblyFileError</span>
+<span class="kn">from</span> <span class="nn">.logger</span> <span class="k">import</span> <span class="n">log</span><span class="p">,</span> <span class="n">setloglevel</span>
 
 
-<div class="viewcode-block" id="parsecli"><a class="viewcode-back" href="../../reference/dbassembly.html#dbassembly.cli.parsecli">[docs]</a><span class="k">def</span> <span class="nf">parsecli</span><span class="p">(</span><span class="n">argv</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="parsecli"><a class="viewcode-back" href="../../reference/dbassembly.html#dbassembly.cli.parsecli">[docs]</a><span class="k">def</span> <span class="nf">parsecli</span><span class="p">(</span><span class="n">argv</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Parse command line arguments with docopt</span>
 
 <span class="sd">    :param list argv: Arguments to parse or None (=use `sys.argv`)</span>
@@ -231,7 +259,7 @@
 <span class="s2">        DocBook 5 assembly file</span>
 <span class="s2">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">docopt</span><span class="p">(</span><span class="n">_doc</span><span class="p">,</span>
-                  <span class="n">help</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                  <span class="n">help</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                   <span class="n">version</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> version </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">__proc__</span><span class="p">,</span> <span class="n">__version__</span><span class="p">),</span>
                   <span class="c1"># options_first=True,</span>
                   <span class="n">argv</span><span class="o">=</span><span class="n">argv</span><span class="p">,</span>
@@ -276,7 +304,7 @@
         <span class="k">return</span> <span class="mi">30</span></div>
 
 
-<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../reference/dbassembly.html#dbassembly.cli.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">argv</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../reference/dbassembly.html#dbassembly.cli.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">argv</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Main entry point</span>
 
 <span class="sd">    :param list argv: Arguments to parse or None (=use `sys.argv`)</span>
@@ -288,7 +316,7 @@
         <span class="n">cli</span> <span class="o">=</span> <span class="n">parsecli</span><span class="p">(</span><span class="n">argv</span><span class="p">)</span>
     <span class="k">except</span> <span class="n">DocoptExit</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
         <span class="c1"># exception thrown by docopt, results in usage message</span>
-        <span class="k">print</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
         <span class="k">return</span> <span class="mi">1</span>
 
     <span class="n">setloglevel</span><span class="p">(</span><span class="n">cli</span><span class="p">[</span><span class="s1">&#39;-v&#39;</span><span class="p">])</span>
@@ -296,6 +324,9 @@
     <span class="k">return</span> <span class="n">main_app</span><span class="p">(</span><span class="n">cli</span><span class="p">)</span></div>
 </pre></div>
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
@@ -306,7 +337,7 @@
   <div role="contentinfo">
     <p>
         &copy; Copyright 2016, Thomas Schraitle.
-      Last updated on Jun 30, 2016.
+      Last updated on May 03, 2017.
 
     </p>
   </div>
@@ -331,7 +362,8 @@
             VERSION:'0.1.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../_static/jquery.js"></script>
