@@ -32,5 +32,18 @@ Contains global variables
 
 """
 
+import logging
+
+
+__author__ = "Thomas Schraitle"
 __version__ = "0.1.5"
+__name__ = "dbassembly"
 __proc__ = "dbassembly"
+__url__ = "https://github.com/tomschr/dbassembly"
+__email__ = "tom_schr (AT) web DOT de"
+__summary__ = __doc__
+
+
+#: Set default logging handler to avoid "No handler found" warnings.
+# See https://docs.python.org/3/howto/logging.html#library-config
+logging.getLogger().addHandler(logging.NullHandler())
